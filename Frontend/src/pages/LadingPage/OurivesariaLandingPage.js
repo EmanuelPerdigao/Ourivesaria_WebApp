@@ -1,4 +1,4 @@
-import React, { useState, Fragment } from "react";
+import React, { useState, Fragment, useEffect } from "react";
 import { Mail, MapPin, Phone, mail, phone } from 'lucide-react'
 import { NavLink } from 'react-router-dom'
 import StoreShowCase2 from '../../Images/StoreShowcase2.jpg'
@@ -8,6 +8,14 @@ import OthersSectionImg from '../../Images/OtherSection.jpg'
 import EngravingImageSection from '../../Images/EngravingImageSection.jpg'
 
 export const OurivesariaLandingPage = () => {
+
+    const showAlert = () => {
+        alert('Thank you for visiting my project! Please note that, due to the free version of hosting, the server automatically shuts down after some time. It will come back on after you visit the website again, which may take a few minutes. If you have any questions or concerns, please send me a message. Thanks!');
+      };
+
+      useEffect(() => {
+        showAlert();
+    }, []);
 
     return (
         <>

@@ -33,10 +33,10 @@ export const OurivesariaLandingPage = () => {
                             {/* Description */}
                             <div className=" md:max-w-[60%] pt-10 md:pt-20 text-start md:text-2xl">
                                 <div>
-                                    <p className="max-w-screen-md">Contando com mais de 50 anos de história, temos vindo a manter a tradição de família, e a nossa paixão pela venda de produtos de ouro e prata.</p>
+                                    <p className="max-w-screen-md">Contando com mais de 50 anos de história, temos mantido a tradição de família, e a nossa paixão pela venda de produtos de ouro e prata.</p>
                                 </div>
                                 
-                                <p className="max-w-screen-md">Localizados na Rua da Ourivesaria, abrimos as portas aos nossos clientes regulares todos os dias, excepto aos domingos.</p>
+                                <p className="max-w-screen-md">Localizados na Rua da Ourivesaria, abrimos as portas aos nossos clientes regulares todos os dias, exceto aos domingos.</p>
                                 <p className="max-w-screen-md">Temos produtos de variadas marcas, estilos, para todos os gostos, e intervalos de valores também muito abrangentes, desde as peças mais sofisticadas até às peças mais simples e bonitas.</p>
                             </div>
 
@@ -72,7 +72,7 @@ export const OurivesariaLandingPage = () => {
 
                             {/* Description */}
                             <div className="md:max-w-[75%]text-start md:text-2xl">
-                                <p className="w-full ">Sendo o nosso foco principal ouro e prata, vendemos todo o tipo de produto dentro destes materiais, desde colares e pulseiras até brincos e anéis.</p>
+                                <p className="w-full ">Sendo o nosso principal foco a venda de ouro e prata, dispomos de várias categorias de produtos dentro destes materiais, desde colares, pulseiras, brincos e até anéis.</p>
                                 <p className="w-full ">Temos também uma vasta oferta de relógios, decorações, entre outros.</p>
                             </div>
 
@@ -116,7 +116,7 @@ export const OurivesariaLandingPage = () => {
                             </div>
                             {/* Description */}
                             <div className="md:max-w-[75%] pt-2 md:pt-20 text-start md:text-2xl">
-                                <p className="w-full ">Uma data importante, iniciais ou o nome de alguém especial é uma personalização que nós podemos fornecer. É apto aos nossos clientes que escrevam a sua história.</p>
+                                <p className="w-full ">Cada detalhe é uma história! Uma data importante, iniciais ou o nome de alguém especial é uma personalização que nós podemos fornecer, tornando cada peça única e inesquecível.</p>
                             </div>
                         </div>
                         {/* Showcase Image */}

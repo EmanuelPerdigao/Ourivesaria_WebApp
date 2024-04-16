@@ -4,7 +4,7 @@ import { baseURL } from "../../SharedData";
 import { useLocation } from 'react-router-dom';
 import base64 from 'react-native-base64'
 import { LoginContext } from "../../App";
-import { sendRequest } from "../../Services/apiGenericService";
+import { sendRequest } from "../../services/apiGenericService";
 
 export default function Login() {
 

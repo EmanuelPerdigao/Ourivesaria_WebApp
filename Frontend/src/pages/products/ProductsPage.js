@@ -2,7 +2,7 @@ import React, { useState, useEffect} from "react";
 import { ProductsFilter } from "../../components/products/ProductsPageFilters/ProductsFilter";
 import { ProductsSection } from "../../components/products/ProductsSection";
 import { useNavigate, useLocation } from "react-router-dom";
-import { apigetProducts, apigetAllProductsByCategory, apigetAllProductsByCategoryAndMaterial, apigetAllMaterialsByCategory } from '../../Services/productApiService';
+import { apigetProducts, apigetAllProductsByCategory, apigetAllProductsByCategoryAndMaterial, apigetAllMaterialsByCategory } from '../../services/productApiService';
 
 
 export const ProductsPage = (props) => {

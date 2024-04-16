@@ -9,6 +9,7 @@ module.exports = {
 
             fontFamily: {
                 Newsreader: ["Newsreader", "serif"],
+                Inter : ["Inter", "sans-serif"],
               },
         },        
     },

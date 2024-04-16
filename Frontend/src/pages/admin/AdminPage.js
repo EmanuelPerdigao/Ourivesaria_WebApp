@@ -1,11 +1,11 @@
 import { useEffect, useState} from 'react';
 import { useNavigate, useLocation } from "react-router-dom";
-import { sendRequest } from '../../Services/apiGenericService';
+import { sendRequest } from '../../services/apiGenericService';
 import { baseURL } from '../../SharedData';
 import { ProductsFilter } from '../../components/products/ProductsPageFilters/ProductsFilter';
 import EditProduct from '../../components/admin/products/EditProduct';
 import AddProduct from '../../components/admin/products/AddProduct';
-import { apigetProducts, apigetAllCategories, apigetAllMaterials, apigetAllProductsByCategory, apigetAllProductsByCategoryAndMaterial, apigetAllMaterialsByCategory, apiaddProductByCategory, apiupdateProduct, apideleteProduct } from '../../Services/productApiService';
+import { apigetProducts, apigetAllCategories, apigetAllMaterials, apigetAllProductsByCategory, apigetAllProductsByCategoryAndMaterial, apigetAllMaterialsByCategory, apiaddProductByCategory, apiupdateProduct, apideleteProduct } from '../../services/productApiService';
 
 export default function NewAdminPage() {
 

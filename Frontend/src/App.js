@@ -1,15 +1,15 @@
 import './index.css';
 import { createContext, useEffect, useState } from 'react';
 import { BrowserRouter, Routes, Route } from 'react-router-dom';
-import Header from './components/Header';
-import NotFound from './components/NotFound';
-import { OurivesariaLandingPage } from './pages/LadingPage/OurivesariaLandingPage';
+import Header from './components/header/Header';
+import NotFound from './pages/errors/NotFound';
+import { OurivesariaLandingPage } from './pages/landingPage/OurivesariaLandingPage';
 import AdminPage from './pages/admin/AdminPage';
 import { ProductsPage } from './pages/products/ProductsPage';
-import Error from './pages/Erros/Error'
-import ErrorServerDown from './pages/Erros/ErrorServerDown'
+import Error from './pages/errors/Error'
+import ErrorServerDown from './pages/errors/ErrorServerDown'
 
-import Login from './pages/UserAuth/Login';
+import Login from './pages/userAuth/Login';
 
 export const LoginContext = createContext();
 

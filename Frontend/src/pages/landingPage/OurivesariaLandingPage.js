@@ -11,10 +11,10 @@ export const OurivesariaLandingPage = () => {
 
     const showAlert = () => {
         alert('Thank you for visiting my project! Please note that, due to the free version of hosting, the server automatically shuts down after some time. It will come back on after you visit the website again, which may take a few minutes. If you have any questions or concerns, please send me a message. Thanks!');
-      };
+    };
 
-      useEffect(() => {
-        showAlert();
+    useEffect(() => {
+        //showAlert();
     }, []);
 
     return (
@@ -35,17 +35,21 @@ export const OurivesariaLandingPage = () => {
 
                             {/* Title */}
                             <div className=" md:max-w-[65%]">
-                                <h2 className="mb-6 text-center  font-medium italic md:text-6xl md:mb-0">Somos especialistas na venda de produtos de ouro e prata.</h2>
+                                <h2 className="mb-6 text-center font-Newsreader italic md:text-6xl md:mb-0">Somos especialistas na venda de produtos de ouro e prata.</h2>
                             </div>
 
                             {/* Description */}
-                            <div className=" md:max-w-[60%] pt-10 md:pt-20 text-start md:text-2xl">
-                                <div>
-                                    <p className="max-w-screen-md">Contando com mais de 50 anos de história, temos mantido a tradição de família, e a nossa paixão pela venda de produtos de ouro e prata.</p>
+                            <div className="flex flex-col content-center md:max-w-[60%] pt-10 md:pt-20 font-Inter text-center md:text-2xl">
+                                <div className="w-full h-full">
+                                    <p className="">Contando com mais de 50 anos de história, temos mantido a tradição de família, e a nossa paixão pela venda de produtos de ouro e prata.</p>
                                 </div>
-                                
-                                <p className="max-w-screen-md">Localizados na Rua da Ourivesaria, abrimos as portas aos nossos clientes regulares todos os dias, exceto aos domingos.</p>
-                                <p className="max-w-screen-md">Temos produtos de variadas marcas, estilos, para todos os gostos, e intervalos de valores também muito abrangentes, desde as peças mais sofisticadas até às peças mais simples e bonitas.</p>
+                                <div className="w-full h-full">
+                                    <p className="">Localizados na Rua da Ourivesaria, abrimos as portas aos nossos clientes regulares todos os dias, exceto aos domingos.</p>
+                                </div>
+                                <div className="w-full h-full">
+                                    <p className="">Temos produtos de variadas marcas, estilos, para todos os gostos, e intervalos de valores também muito abrangentes, desde as peças mais sofisticadas até às peças mais simples e bonitas.</p>
+                                </div>
+
                             </div>
 
                         </div>
@@ -161,7 +165,7 @@ export const OurivesariaLandingPage = () => {
                                 {/* Phone */}
                                 <div className="flex flex-row gap-2">
                                     <div>
-                                        <Phone/>
+                                        <Phone />
                                     </div>
                                     <div>
                                         <p className=" p-0 m-0">+351 915251235</p>
@@ -170,7 +174,7 @@ export const OurivesariaLandingPage = () => {
                                 {/* Email */}
                                 <div className="flex flex-row gap-2">
                                     <div>
-                                        <Mail/>
+                                        <Mail />
                                     </div>
                                     <div>
                                         <p className="r p-0 m-0">Ourivesaria@gmail.com</p>

@@ -166,9 +166,9 @@ export const ProductsPage = (props) => {
         <>
             <div className="w-full h-full overflow-x-hidden bg-white">
 
-                <div className="container mx-auto">
+                <div className="sm:px-1 md:px-10 lg:px-20 mx-auto">
 
-                    <div className="mt-20 h-content">
+                    <div className="mt-28 h-content">
 
                         <ProductsFilter
                             navigationCategory={navigationCategory}
@@ -181,7 +181,7 @@ export const ProductsPage = (props) => {
                         </ProductsFilter>
 
 
-                        <div className="w-full my-6 border-t-2 border-gray-300">
+                        <div className="w-full my-10 border-t-2 border-gray-300">
 
                         </div>
 

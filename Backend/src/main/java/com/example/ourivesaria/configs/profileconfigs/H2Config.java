@@ -126,5 +126,8 @@ public class H2Config implements CommandLineRunner {
 
         productService.saveProduct(productEntityColarPrata);
 
+
+
+
     }
 }

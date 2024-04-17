@@ -8,7 +8,7 @@ import AdminPage from './pages/admin/AdminPage';
 import { ProductsPage } from './pages/products/ProductsPage';
 import Error from './pages/errors/Error';
 import ErrorServerDown from './pages/errors/ErrorServerDown';
-import Login from './pages/userAuth/Login';
+import Login from './pages/UserAuth/Login';
 
 export const LoginContext = createContext();
 

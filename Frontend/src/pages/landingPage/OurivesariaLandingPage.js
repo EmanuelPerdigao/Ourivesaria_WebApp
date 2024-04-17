@@ -130,7 +130,7 @@ export const OurivesariaLandingPage = () => {
                         <div className="flex flex-col w-full space-y-4 md:space-y-16 items-center text-center">
 
                             <div className=" md:max-w-[65%]">
-                                <h2 className="m-0 font-Newsreader text-1xl md:text-6xl">Onde nos encontrar ?</h2>
+                                <h2 className="m-0 font-Newsreader text-1xl md:text-6xl">Onde nos encontrar ? </h2>
                             </div>
 
                             <div className="w-full h-full">

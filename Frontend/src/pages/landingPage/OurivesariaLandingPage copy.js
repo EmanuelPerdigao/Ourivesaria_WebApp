@@ -14,7 +14,7 @@ export const OurivesariaLandingPage = () => {
     };
 
     useEffect(() => {
-        showAlert();
+        //showAlert();
     }, []);
 
     return (
@@ -27,19 +27,19 @@ export const OurivesariaLandingPage = () => {
                 </section>
 
                 {/*######################################## History Section ########################################*/}
-                <section id='historia' className="w-screen h-full">
+                <section id='historia' className="w-screen h-full bg-white">
 
-                    <div className="h-full w-full px-8 md:px-12 pt-20 md:pt-52">
+                    <div className="container mx-auto h-full w-full p-12 md:pt-20">
 
-                        <div className="w-full h-full flex flex-col items-center text-left md:text-center font text-black">
+                        <div className="w-full h-full flex flex-col items-center text-black">
 
                             {/* Title */}
-                            <div className=" md:max-w-[45%]">
-                                <h2 className="m-0 font-Newsreader text-1xl md:text-6xl">Somos especialistas na venda de produtos de ouro e prata.</h2>
+                            <div className=" md:max-w-[65%]">
+                                <h2 className="mb-6 text-center font-Newsreader italic md:text-6xl md:mb-0">Somos especialistas na venda de produtos de ouro e prata.</h2>
                             </div>
 
                             {/* Description */}
-                            <div className="flex flex-col font-Inter content-center md:max-w-[40%] pt-10 md:pt-20 text-sm md:text-xl">
+                            <div className="flex flex-col content-center md:max-w-[60%] pt-10 md:pt-20 font-Inter text-center md:text-2xl">
                                 <div className="w-full h-full">
                                     <p className="">Contando com mais de 50 anos de história, temos mantido a tradição de família, e a nossa paixão pela venda de produtos de ouro e prata.</p>
                                 </div>
@@ -56,6 +56,14 @@ export const OurivesariaLandingPage = () => {
 
                     </div>
 
+
+                    {/* Showcase Images */}
+                    <div className="flex items-center justify-center gap-4 md:gap-0 w-screen h-full pb-10">
+                        <div >
+                            <img src={StoreShowCase2} alt="StoreShow" width="800" loading="eager"></img>
+                        </div>
+                    </div>
+
                 </section>
 
 
@@ -63,85 +71,92 @@ export const OurivesariaLandingPage = () => {
 
                 {/*######################################## Products Category Section ########################################*/}
 
-                <section id='produtos' className="w-full h-full pt-20 md:pt-52">
-                    <div className="h-full md:h-[600px] w-[80%] mx-auto">
-                        <div className="flex flex-col md:flex-row space-y-2 md:space-y-0 space-x-0 md:space-x-4 w-full h-full">
-                            <div className="w-full md:w-1/3 h-full">
-                                <img src={GoldSectionImg} alt="Gold Products" loading="eager" className="object-cover w-full h-full hover:shadow-xl" />
-                            </div>
-                            <div className="w-full md:w-1/3 h-full">
-                                <img src={SilverSectionImg} alt="Silver Products" loading="eager" className="object-cover w-full h-full hover:shadow-xl" />
-                            </div>
-                            <div className="w-full md:w-1/3 h-full">
-                                <img src={OthersSectionImg} alt="Others Products" loading="eager" className="object-cover w-full h-full hover:shadow-xl" />
-                            </div>
-                        </div>
-                    </div>
+                <section id='produtos' className="w-screen h-full md:pt-20">
 
-                </section>
+                    <div className="container mx-auto h-full w-full p-0">
 
-
-                {/* Explore Products Button */}
-                <div className="container flex items-center justify-center w-full h-full py-12 md:py-20">
-                    <p className="m-0 text-xl md:text-3xl font-Newsreader font-medium text-black">
-                        conheça todos os produtos {' '}
-                        <NavLink to={'/ProductsPage'} className="underline cursor-pointer hover:text-blue-700 text-gray-950 italic">aqui</NavLink>.
-                    </p>
-                </div>
-
-
-                {/* ######################################## Engraving Service Info Section ############################*/}
-
-
-                <section id='informação' className="w-screen h-full pt-20 md:pt-46">
-
-                    <div className=" h-full w-full px-8 md:px-28">
-
-                        <div className="w-full h-full flex flex-col items-center text-black">
+                        <div className="w-full h-full flex flex-col items-left text-black space-y-10">
 
                             {/* Title */}
                             <div className=" md:max-w-[65%]">
-                                <h2 className="mb-6 md:mb-0 text-center font-Newsreader text-1xl md:text-6xl ">Serviço de gravação</h2>
+                                <h2 className="text-left  font-medium italic md:text-6xl">O que vendemos?</h2>
                             </div>
 
                             {/* Description */}
-                            <div className="font-Inter content-center md:max-w-[35%] pt-10 md:pt-20 text-center md:text-xl">
-                                <div className="w-full h-full">
-                                    <p className="">Cada detalhe é uma história! Uma data importante, iniciais ou o nome de alguém especial é uma personalização que nós podemos fornecer, tornando cada peça única e inesquecível.</p>
-                                </div>
+                            <div className="md:max-w-[75%]text-start md:text-2xl">
+                                <p className="w-full ">Sendo o nosso principal foco a venda de ouro e prata, dispomos de várias categorias de produtos dentro destes materiais, desde colares, pulseiras, brincos e até anéis.</p>
+                                <p className="w-full ">Temos também uma vasta oferta de relógios, decorações, entre outros.</p>
                             </div>
 
-                            {/* Showcase Image */}
-                            <div className="flex flex-wrap w-full items-center justify-center mt-20">
-                                <div className="w-full h-full">
-                                    <img src={EngravingImageSection} alt="Engraving Service Jewellery" loading="eager" className="w-full h-400 md:h-full" />
-                                </div>
-                            </div>
                         </div>
+
                     </div>
 
                 </section>
 
+                {/* Products Category Showcase Images */}
+                <div className="h-full w-full mt-10">
+                    <div className="flex flex-col md:flex-row md:flex-wrap w-screen h-full md:h-[70vh]">
+                        <div className="w-full md:w-1/3 h-full">
+                            <img src={GoldSectionImg} alt="Gold Products" loading="eager" className="object-cover w-full h-full" />
+                        </div>
+                        <div className="w-full md:w-1/3 h-full">
+                            <img src={SilverSectionImg} alt="Silver Products" loading="eager" className="object-cover w-full h-full" />
+                        </div>
+                        <div className="w-full md:w-1/3 h-full">
+                            <img src={OthersSectionImg} alt="Others Products" loading="eager" className="object-cover w-full h-full" />
+                        </div>
+                    </div>
+                </div>
+
+
+                {/* Explore Products Button */}
+                <div className="container flex items-center justify-center w-full h-full py-24 md:py-28">
+                    <NavLink to={'/ProductsPage'}>
+                        <button className="border-2 rounded-3xl border-black p-2 text-xl md:text-2xl font-semibold text-black hover:scale-105">Explore os nossos produtos</button>
+                    </NavLink>
+                </div>
+
+                {/* ######################################## Engraving Service Info Section ############################*/}
+
+                <section id='Informações' className="w-screen h-full">
+                    <div className="container mx-auto h-full w-full p-0">
+                        <div className="w-full h-full flex flex-col items-left space-y-4 text-black">
+                            {/* Title */}
+                            <div className=" md:max-w-[65%]">
+                                <h2 className="mb-6 text-left  font-medium italic md:text-6xl md:mb-0">Serviço de gravação</h2>
+                            </div>
+                            {/* Description */}
+                            <div className="md:max-w-[75%] pt-2 md:pt-20 text-start md:text-2xl">
+                                <p className="w-full ">Cada detalhe é uma história! Uma data importante, iniciais ou o nome de alguém especial é uma personalização que nós podemos fornecer, tornando cada peça única e inesquecível.</p>
+                            </div>
+                        </div>
+                        {/* Showcase Image */}
+                        <div className="flex flex-wrap w-full items-center justify-center mt-6">
+                            <div className="w-full md:w-1/3">
+                                <img src={EngravingImageSection} alt="Imagem 1" loading="eager" className="w-full h-300 md:h-full" />
+                            </div>
+                        </div>
+                    </div>
+                </section>
 
                 {/*######################################## Location Section ########################################*/}
-                <section id='localizacao' className="w-screen h-full pt-12 md:pt-48 pb-16 space-y-6">
+                <section id='localizacao' className="w-screen h-full bg-white pt-12 md:pt-20 pb-2 space-y-6">
                     <div className="container mx-auto w-full p-0">
                         {/* Location Map */}
-                        <div className="flex flex-col w-full space-y-4 md:space-y-16 items-center text-center">
-
-                            <div className=" md:max-w-[65%]">
-                                <h2 className="m-0 font-Newsreader text-1xl md:text-6xl">Onde nos encontrar ?</h2>
+                        <div className="flex flex-col w-full justify-around space-y-4 md:space-y-16">
+                            <div className="md:max-w-[65%]">
+                                <h2 className="mb-6 text-left  font-medium italic md:text-6xl md:mb-0">Onde nos encontrar ?</h2>
                             </div>
-
-                            <div className="w-full h-full">
-                                <iframe className="w-full h-96 md:h-[600px]" src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d93441.3149049367!2d-9.22447868803797!3d38.75000475554575!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0xd1ecccc3b1fd217%3A0x71abd39905b41eba!2sParque%20Florestal%20de%20Monsanto!5e0!3m2!1spt-PT!2spt!4v1712684342087!5m2!1spt-PT!2spt"></iframe>
+                            <div className="">
+                                <iframe className="w-full h-96" src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d93441.3149049367!2d-9.22447868803797!3d38.75000475554575!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0xd1ecccc3b1fd217%3A0x71abd39905b41eba!2sParque%20Florestal%20de%20Monsanto!5e0!3m2!1spt-PT!2spt!4v1712684342087!5m2!1spt-PT!2spt"></iframe>
                             </div>
                         </div>
                     </div>
                     {/*######################################## Contact/Opening Hours Section ########################################*/}
-                    <div className="container mx-auto border-gray-700 pt-2"></div>
+                    <div className="container mx-auto border-t-2 border-gray-700"></div>
                     <div id="contactos" className="container mx-auto h-full p-0">
-                        <footer className="h-full flex flex-col md:flex-row md:gap-14 justify-between items-start text-black md:p-0 ">
+                        <footer className="h-full flex flex-col md:flex-row md:gap-14 justify-left items-start text-black md:p-0 ">
                             {/* Contact Information */}
                             <div className="flex flex-col max-w-[65%] gap-2">
                                 <div>
@@ -195,7 +210,7 @@ export const OurivesariaLandingPage = () => {
                     </div>
                 </section>
 
-            </body >
+            </body>
         </>
     );
 };

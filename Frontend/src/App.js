@@ -6,9 +6,8 @@ import NotFound from './pages/errors/NotFound';
 import { OurivesariaLandingPage } from './pages/landingPage/OurivesariaLandingPage';
 import AdminPage from './pages/admin/AdminPage';
 import { ProductsPage } from './pages/products/ProductsPage';
-import Error from './pages/errors/Error'
+import Error from './pages/errors/Error';
 import ErrorServerDown from './pages/errors/ErrorServerDown';
-
 import Login from './pages/userAuth/Login';
 
 export const LoginContext = createContext();

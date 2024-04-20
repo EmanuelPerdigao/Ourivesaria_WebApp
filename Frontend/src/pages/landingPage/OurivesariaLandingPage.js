@@ -10,7 +10,10 @@ import EngravingImageSection from '../../Images/EngravingImageSection.jpg'
 export const OurivesariaLandingPage = () => {
 
     const showAlert = () => {
-        alert('Thank you for visiting my project! Please note that, due to the free version of hosting, the server automatically shuts down after some time. It will come back on after you visit the website again, which may take a few minutes. If you have any questions or concerns, please send me a message. Thanks!');
+        alert('Thank you for visiting my project! Please note that due to the free version of hosting,' +
+            'the server automatically shuts down after some time, so you may not be able to see the products page right away.' +
+            'Please wait a few minutes and refresh the page to enjoy the whole experience. If you have any questions or concerns, send me a message.' +
+            'Thanks!');
     };
 
     useEffect(() => {
@@ -34,20 +37,20 @@ export const OurivesariaLandingPage = () => {
                         <div className="w-full h-full flex flex-col items-center text-left md:text-center font text-black">
 
                             {/* Title */}
-                            <div className=" md:max-w-[45%]">
-                                <h2 className="m-0 font-Newsreader text-1xl md:text-6xl">Somos especialistas na venda de produtos de ouro e prata.</h2>
+                            <div className=" md:max-w-[45%] space-y-6">
+                                <p className="m-0 font-Newsreader text-1xl md:text-6xl">Somos especialistas na venda de produtos de ouro e prata.</p>
                             </div>
 
                             {/* Description */}
-                            <div className="flex flex-col font-Inter content-center md:max-w-[40%] pt-10 md:pt-20 text-sm md:text-xl">
+                            <div className="flex flex-col font-Inter content-center md:max-w-[40%] pt-10 md:pt-20 text-sm md:text-xl gap-2">
                                 <div className="w-full h-full">
-                                    <p className="">Contando com mais de 50 anos de história, temos mantido a tradição de família, e a nossa paixão pela venda de produtos de ouro e prata.</p>
+                                    <p>Contando com mais de 50 anos de história, temos mantido a tradição de família, e a nossa paixão pela venda de produtos de ouro e prata.</p>
                                 </div>
                                 <div className="w-full h-full">
-                                    <p className="">Localizados na Rua da Ourivesaria, abrimos as portas aos nossos clientes regulares todos os dias, exceto aos domingos.</p>
+                                    <p>Localizados na Rua da Ourivesaria, abrimos as portas aos nossos clientes regulares todos os dias, exceto aos domingos.</p>
                                 </div>
                                 <div className="w-full h-full">
-                                    <p className="">Temos produtos de variadas marcas, estilos, para todos os gostos, e intervalos de valores também muito abrangentes, desde as peças mais sofisticadas até às peças mais simples e bonitas.</p>
+                                    <p>Temos produtos de variadas marcas, estilos, para todos os gostos, e intervalos de valores também muito abrangentes, desde as peças mais sofisticadas até às peças mais simples e bonitas.</p>
                                 </div>
 
                             </div>
@@ -59,12 +62,10 @@ export const OurivesariaLandingPage = () => {
                 </section>
 
 
-
-
                 {/*######################################## Products Category Section ########################################*/}
 
                 <section id='produtos' className="w-full h-full pt-20 md:pt-52">
-                    <div className="h-full md:h-[600px] w-[80%] mx-auto">
+                    <div className="h-full md:h-[80vh] w-full sm:px-2 md:px-48 mx-auto">
                         <div className="flex flex-col md:flex-row space-y-2 md:space-y-0 space-x-0 md:space-x-4 w-full h-full">
                             <div className="w-full md:w-1/3 h-full">
                                 <img src={GoldSectionImg} alt="Gold Products" loading="eager" className="object-cover w-full h-full hover:shadow-xl" />
@@ -95,7 +96,7 @@ export const OurivesariaLandingPage = () => {
 
                 <section id='informação' className="w-screen h-full pt-20 md:pt-46">
 
-                    <div className=" h-full w-full px-8 md:px-28">
+                    <div className=" h-full w-full px-8 md:px-48">
 
                         <div className="w-full h-full flex flex-col items-center text-black">
 
@@ -112,7 +113,7 @@ export const OurivesariaLandingPage = () => {
                             </div>
 
                             {/* Showcase Image */}
-                            <div className="flex flex-wrap w-full items-center justify-center mt-20">
+                            <div className="flex flex-wrap w-full items-center justify-center mt-20 ">
                                 <div className="w-full h-full">
                                     <img src={EngravingImageSection} alt="Engraving Service Jewellery" loading="eager" className="w-full h-400 md:h-full" />
                                 </div>
@@ -125,7 +126,7 @@ export const OurivesariaLandingPage = () => {
 
                 {/*######################################## Location Section ########################################*/}
                 <section id='localizacao' className="w-screen h-full pt-12 md:pt-48 pb-16 space-y-6">
-                    <div className="container mx-auto w-full p-0">
+                    <div className="h-full w-full px-8 md:px-48">
                         {/* Location Map */}
                         <div className="flex flex-col w-full space-y-4 md:space-y-16 items-center text-center">
 
@@ -139,11 +140,12 @@ export const OurivesariaLandingPage = () => {
                         </div>
                     </div>
                     {/*######################################## Contact/Opening Hours Section ########################################*/}
-                    <div className="container mx-auto border-gray-700 pt-2"></div>
-                    <div id="contactos" className="container mx-auto h-full p-0">
-                        <footer className="h-full flex flex-col md:flex-row md:gap-14 justify-between items-start text-black md:p-0 ">
+
+                    <div id="contactos" className="w-screen h-full">
+                        <footer className="h-full w-full px-8 md:px-48 flex flex-col md:flex-row md:gap-14 justify-between items-start text-black md:p-0 ">
+                            
                             {/* Contact Information */}
-                            <div className="flex flex-col max-w-[65%] gap-2">
+                            <div className="flex flex-col max-w-[65%] gap-2 font-Inter">
                                 <div>
                                     <h2 className="r p-0 font-semibold underline">Contactos</h2>
                                 </div>
@@ -176,25 +178,31 @@ export const OurivesariaLandingPage = () => {
                                 </div>
                             </div>
                             {/* Opening Hours */}
-                            <div className="flex flex-col max-w-[65%] gap-2">
-                                <div><h2 className="r p-0 font-semibold underline">Horários</h2></div>
+                            <div className="flex flex-col text-end max-w-[65%] gap-2 font-Inter">
+
+                                <div className="text-end">
+                                    <h2 className="p-0 font-semibold underline">Horários</h2>
+                                </div>
+
                                 {/* Weekdays */}
-                                <div className="flex flex-row gap-2">
-                                    <div><p className=" p-0 m-0">seg - sex: 09:00-19:00</p></div>
+                                <div>
+                                    <p className="p-0 m-0">seg - sex: 09:00-19:00</p>
                                 </div>
+
                                 {/* Saturday */}
-                                <div className="flex flex-row gap-2">
-                                    <div><p className="r p-0 m-0">sáb.: 09:00-13:00</p></div>
+                                <div>
+                                    <p className="p-0 m-0">sáb.: 09:00-13:00</p>
                                 </div>
+
                                 {/* Sunday */}
-                                <div className="flex flex-row gap-2">
-                                    <div><p className="r p-0 m-0">dom.: Fechado</p></div>
+                                <div>
+                                    <p className="p-0 m-0">dom.: Fechado</p>
                                 </div>
+
                             </div>
                         </footer>
                     </div>
                 </section>
-
             </body >
         </>
     );

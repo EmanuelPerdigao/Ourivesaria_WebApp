@@ -43,8 +43,8 @@ export default function NewHeader() {
                                 </div>
 
                                 {/* Ourivesaria Brand */}
-                                <div className='flex items-center ml-8 md:ml-16'>
-                                    <a href="/#inicio" className='text-[36px] font-Newsreader font-medium p-0 m-0 text no-underline text-[#CDA135]'>Ourivesaria Ouro</a>
+                                <div className='flex items-center ml-7 md:ml-16'>
+                                    <a href="/#inicio" className='text-3xl md:text-[36px] font-Newsreader font-medium p-0 m-0 text no-underline text-[#CDA135]'>Ourivesaria Ouro</a>
                                 </div>
 
                                 {/* Main navigation links */}

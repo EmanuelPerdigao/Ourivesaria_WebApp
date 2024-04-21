@@ -53,12 +53,12 @@ public class SecurityConfig  {
     @Bean
     public SecurityFilterChain adminSecurityFilterChain(HttpSecurity httpSecurity) throws Exception{
         return httpSecurity
-                .securityMatcher(new AntPathRequestMatcher("/admin/**"))
-                .csrf(AbstractHttpConfigurer::disable)
-                .authorizeHttpRequests(auth -> auth.requestMatchers("/admin/**").hasAnyAuthority("SCOPE_ADMIN"))
-                .oauth2ResourceServer(oauth2 -> oauth2.jwt(Customizer.withDefaults()))
-                .sessionManagement(session -> session.sessionCreationPolicy(SessionCreationPolicy.STATELESS))
-                .addFilterBefore(new JwtAccessTokenFilter(rsaKeyRecord, jwtTokenUtils), UsernamePasswordAuthenticationFilter.class)
+                .securityMatcher(new AntPathRequestMatcher("/admin/**"))                                                      //Tell spring security which endpoint will apply the following filters
+                .csrf(AbstractHttpConfigurer::disable)                                                                              //disable Cross Site Request Forgery because I'm working with jwt tokens and future problems may arise if enabled
+                .authorizeHttpRequests(auth -> auth.requestMatchers("/admin/**").hasAnyAuthority("SCOPE_ADMIN"))   //define who is allowed to access the URL based on roles, authority
+                .oauth2ResourceServer(oauth2 -> oauth2.jwt(Customizer.withDefaults()))                                              //Intercepts requests, extracts any Bearer Tokens and attempts to authenticate
+                .sessionManagement(session -> session.sessionCreationPolicy(SessionCreationPolicy.STATELESS))                       //Sets the session creation policy to stateless, which means that the application will not create an HTTP session and will not use it for storing security-related information
+                .addFilterBefore(new JwtAccessTokenFilter(rsaKeyRecord, jwtTokenUtils), UsernamePasswordAuthenticationFilter.class) //Authenticate the jwt access token to check if it is valid and if it is autenticate the user with username and password
                 .exceptionHandling(ex -> {
                     log.error("[SecurityConfig:apiSecurityFilterChain] Exception due to :{}",ex);
                     ex.authenticationEntryPoint(new BearerTokenAuthenticationEntryPoint());
@@ -70,12 +70,12 @@ public class SecurityConfig  {
 
     @Order(2)
     @Bean
-    public SecurityFilterChain signInSecurityFilterChain(HttpSecurity httpSecurity) throws Exception{
+    public SecurityFilterChain loginSecurityFilterChain(HttpSecurity httpSecurity) throws Exception{
         return httpSecurity
-                .securityMatcher(new AntPathRequestMatcher("/auth/user/login"))
+                .securityMatcher(new AntPathRequestMatcher("/user/auth/login"))
                 .csrf(AbstractHttpConfigurer::disable)
                 .authorizeHttpRequests(auth -> auth.anyRequest().authenticated())
-                .userDetailsService(userInfoManagerConfig)
+                .userDetailsService(userInfoManagerConfig)                                                      //is responsible for loading user-specific data during the authentication process in this case is using a custom class to create an UserDetails by some specific User Info (EmailId) because is unique
                 .sessionManagement(session -> session.sessionCreationPolicy(SessionCreationPolicy.STATELESS))
                 .exceptionHandling(ex -> {
                     ex.authenticationEntryPoint((request, response, authException) ->
@@ -90,10 +90,9 @@ public class SecurityConfig  {
     @Bean
     public SecurityFilterChain apiSecurityFilterChain(HttpSecurity httpSecurity) throws Exception{
         return httpSecurity
-                .securityMatcher(new AntPathRequestMatcher("/api/user/**"))
+                .securityMatcher(new AntPathRequestMatcher("/api/**"))
                 .csrf(AbstractHttpConfigurer::disable)
                 .authorizeHttpRequests(auth -> auth.anyRequest().permitAll())
-                .oauth2ResourceServer(oauth2 -> oauth2.jwt(Customizer.withDefaults()))
                 .sessionManagement(session -> session.sessionCreationPolicy(SessionCreationPolicy.STATELESS))
                 .exceptionHandling(ex -> {
                     log.error("[SecurityConfig:apiSecurityFilterChain] Exception due to :{}",ex);
@@ -108,7 +107,7 @@ public class SecurityConfig  {
     @Bean
     public SecurityFilterChain refreshTokenSecurityFilterChain(HttpSecurity httpSecurity) throws Exception{
         return httpSecurity
-                .securityMatcher(new AntPathRequestMatcher("/auth/user/refresh-token/**"))
+                .securityMatcher(new AntPathRequestMatcher("/user/auth/refresh-token/**"))
                 .csrf(AbstractHttpConfigurer::disable)
                 .authorizeHttpRequests(auth -> auth.anyRequest().authenticated())
                 .oauth2ResourceServer(oauth2 -> oauth2.jwt(Customizer.withDefaults()))
@@ -127,14 +126,14 @@ public class SecurityConfig  {
     @Bean
     public SecurityFilterChain logoutSecurityFilterChain(HttpSecurity httpSecurity) throws Exception {
         return httpSecurity
-                .securityMatcher(new AntPathRequestMatcher("/auth/user/logout/**"))
+                .securityMatcher(new AntPathRequestMatcher("/user/auth/logout/**"))
                 .csrf(AbstractHttpConfigurer::disable)
                 .authorizeHttpRequests(auth -> auth.anyRequest().authenticated())
                 .oauth2ResourceServer(oauth2 -> oauth2.jwt(Customizer.withDefaults()))
                 .sessionManagement(session -> session.sessionCreationPolicy(SessionCreationPolicy.STATELESS))
                 .addFilterBefore(new JwtAccessTokenFilter(rsaKeyRecord,jwtTokenUtils), UsernamePasswordAuthenticationFilter.class)
                 .logout(logout -> logout
-                        .logoutUrl("/auth/user/logout")
+                        .logoutUrl("/user/auth/logout")
                         .addLogoutHandler(logoutHandlerService)
                         .logoutSuccessHandler(((request, response, authentication) -> SecurityContextHolder.clearContext()))
                 )
@@ -148,24 +147,12 @@ public class SecurityConfig  {
 
     @Order(6)
     @Bean
-    public SecurityFilterChain registerSecurityFilterChain(HttpSecurity httpSecurity) throws Exception{
+    public SecurityFilterChain signupSecurityFilterChain(HttpSecurity httpSecurity) throws Exception{
         return httpSecurity
-                .securityMatcher(new AntPathRequestMatcher("/auth/user/sign-up/**"))
+                .securityMatcher(new AntPathRequestMatcher("/user/auth/sign-up/**"))
                 .csrf(AbstractHttpConfigurer::disable)
                 .authorizeHttpRequests(auth -> auth.anyRequest().permitAll())
                 .sessionManagement(session -> session.sessionCreationPolicy(SessionCreationPolicy.STATELESS))
-                .build();
-    }
-
-    @Order(7)
-    @Bean
-    public SecurityFilterChain h2ConsoleSecurityFilterChainConfig(HttpSecurity httpSecurity) throws Exception{
-        return httpSecurity
-                .securityMatcher(new AntPathRequestMatcher(("/h2-console/**")))
-                .authorizeHttpRequests(auth->auth.anyRequest().permitAll())
-                .csrf(csrf -> csrf.ignoringRequestMatchers(AntPathRequestMatcher.antMatcher("/h2-console/**")))
-                // to display the h2Console in Iframe
-                .headers(headers -> headers.frameOptions(Customizer.withDefaults()).disable())
                 .build();
     }
 

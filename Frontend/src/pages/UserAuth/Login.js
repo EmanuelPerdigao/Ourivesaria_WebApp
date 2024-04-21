@@ -20,7 +20,7 @@ export default function Login() {
     function Login(e) {
         e.preventDefault();
 
-        fetch(baseURL + 'auth/user/login', {
+        fetch(baseURL + 'user/auth/login', {
             method: 'POST',
             headers: {'Authorization': 'Basic ' + base64.encode(username + ":" + password)}
         })

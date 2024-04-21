@@ -12,7 +12,7 @@ import java.util.List;
 
 @RestController
 @CrossOrigin(origins = "*", maxAge = 3600)
-@RequestMapping("/api/user/category")
+@RequestMapping("/api/products/category")
 public class CategoryController {
 
     final private CategoryService categoryService;

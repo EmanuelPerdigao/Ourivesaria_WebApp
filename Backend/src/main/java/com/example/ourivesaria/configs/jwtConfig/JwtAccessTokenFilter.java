@@ -78,8 +78,6 @@ public class JwtAccessTokenFilter extends OncePerRequestFilter {
                 token = authHeader.substring(7);
                 jwtToken = jwtDecoder.decode(token);
 
-                System.out.println(token);
-
             }catch (Exception exception){
 
                 log.error("[JwtAccessTokenFilter:doFilterInternal] Exception due to :{}",exception.getMessage());

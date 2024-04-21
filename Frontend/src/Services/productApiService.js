@@ -1,4 +1,4 @@
-import { sendRequest } from "./apiGenericService";
+import {sendRequest} from "./apiGenericService";
 import { baseURL } from "../SharedData";
 import { useNavigate, useLocation } from "react-router-dom";
 
@@ -11,7 +11,7 @@ export const apigetProducts = async (navigate, location) => {
     };
 
     try {
-        const response = await sendRequest('GET', baseURL + 'api/user/product/list', {}, headers, navigate, location.pathname);
+        const response = await sendRequest('GET', baseURL + 'api/products/list', {}, headers, navigate, location.pathname);
         return response;
     } catch (e) {
         return e;       
@@ -28,7 +28,7 @@ export const apigetAllCategories = async (navigate, location) => {
     };
 
     try {
-        const response = await sendRequest('GET', baseURL + 'api/user/category/list', {}, headers, navigate, location.pathname);
+        const response = await sendRequest('GET', baseURL + 'api/products/category/list', {}, headers, navigate, location.pathname);
         return response;
     } catch (e) {
         return e;       
@@ -45,7 +45,7 @@ export const apigetAllMaterials = async (navigate, location) => {
     };
 
     try {
-        const response = await sendRequest('GET', baseURL + 'api/user/material/list', {}, headers, navigate, location.pathname);
+        const response = await sendRequest('GET', baseURL + 'api/products/material/list', {}, headers, navigate, location.pathname);
         return response;
     } catch (e) {
         return e;       
@@ -63,7 +63,7 @@ export const apigetAllProductsByCategory = async (category, navigate, location) 
     };
 
     try {
-        const response = await sendRequest('GET', baseURL + 'api/user/product/listByCategory/' + category.id, {}, headers, navigate, location.pathname);
+        const response = await sendRequest('GET', baseURL + 'api/products/listByCategory/' + category.id, {}, headers, navigate, location.pathname);
         return response;
     } catch (e) {
         return e;       
@@ -81,7 +81,7 @@ export const apigetAllProductsByCategoryAndMaterial = async (currentCategory, ma
     };
 
     try {
-        const response = await sendRequest('GET', baseURL + 'api/user/product/listByCategory/' + currentCategory.id + '/material/' + material.id, {}, headers, navigate, location.pathname);
+        const response = await sendRequest('GET', baseURL + 'api/products/listByCategory/' + currentCategory.id + '/material/' + material.id, {}, headers, navigate, location.pathname);
         return response;
     } catch (e) {
         return e;       
@@ -100,7 +100,7 @@ export const apigetAllMaterialsByCategory = async (category, navigate, location)
     };
 
     try {
-        const response = await sendRequest('GET', baseURL + 'api/user/material/listByCategory/' + category.id, {}, headers, navigate, location.pathname);
+        const response = await sendRequest('GET', baseURL + 'api/products/material/listByCategory/' + category.id, {}, headers, navigate, location.pathname);
         return response;
     } catch (e) {
         return e;       

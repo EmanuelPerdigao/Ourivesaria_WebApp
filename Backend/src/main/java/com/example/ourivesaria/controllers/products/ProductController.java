@@ -13,7 +13,7 @@ import java.util.List;
 @RestController
 @CrossOrigin(origins = "*", maxAge = 3600)
 @Slf4j
-@RequestMapping("/api/user/product")
+@RequestMapping("/api/products")
 public class ProductController {
 
     @Autowired

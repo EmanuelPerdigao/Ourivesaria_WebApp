@@ -57,10 +57,10 @@ public class JwtTokenUtils {
         return tokenScopes.containsAll(userAuthorities);
     }
 
-    private final UserRepository useruserRepository;
+    private final UserRepository userRepository;
 
     public UserDetails userDetails(String emailId){
-        return useruserRepository
+        return userRepository
                 .findByEmailId(emailId)
                 .map(UserInfoConfig::new)
                 .orElseThrow(()-> new UsernameNotFoundException("UserEmail: "+emailId+" does not exist"));

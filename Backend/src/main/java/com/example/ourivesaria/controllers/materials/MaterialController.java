@@ -11,7 +11,7 @@ import java.util.List;
 
 @RestController
 @CrossOrigin(origins = "*", maxAge = 3600)
-@RequestMapping("/api/user/material")
+@RequestMapping("/api/products/material")
 public class MaterialController {
 
 
@@ -23,7 +23,6 @@ public class MaterialController {
 
         this.materialMapper = materialMapper;
     }
-
 
     //#############################  LIST ALL MATERIALS AVAILABLE  ####################################
     @RequestMapping(method = RequestMethod.GET, path = {"/list"})

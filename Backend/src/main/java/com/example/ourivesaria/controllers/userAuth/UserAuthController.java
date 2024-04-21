@@ -22,7 +22,7 @@ import java.util.List;
 @CrossOrigin(origins = "*", maxAge = 3600)
 @RequiredArgsConstructor
 @Slf4j
-@RequestMapping("/auth/user")
+@RequestMapping("/user/auth")
 public class UserAuthController {
 
     @Autowired

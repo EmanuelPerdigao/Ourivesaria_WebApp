@@ -11,50 +11,50 @@ In general, the most challenging part to implement was the server security part 
 The technologies I used:
 
 Frontend
-HTML
-TailwindCss
-React.js
-Axios
-Figma
+-HTML
+-TailwindCss
+-React.js
+-Axios
+-Figma
 
 Backend
-Java
-Spring boot
-Spring data jpa
-Spring security (with OAuth)
-PostgreSQL
-Hibernate
-Mockito
-Junit
+-Java
+-Spring boot
+-Spring data jpa
+-Spring security (with OAuth)
+-PostgreSQL
+-Hibernate
+-Mockito
+-Junit
 
 Version Control System
-GIT
+-GIT
 
 Hosting
-Render (with docker)
+-Render (with docker)
 
 
 The functionalities in the web application, which depend on each user's permissions:
  
 Admin
-View, create, update and delete products
-View categories
-View materials
-Login in the Dashboard to manage the products (Authentication and Authorization)
+-View, create, update and delete products
+-View categories
+-View materials
+-Login in the Dashboard to manage the products (Authentication and Authorization)
 
 User
-View products
-View categories
-View materials
-Filter products by category and material
+-View products
+-View categories
+-View materials
+-Filter products by category and material
 
 
 Features under development:
 
-Create and update new categories and materials (Admin Dashboard)
-Implement a feature so that the Admin can upload photos from their mobile phone/computer when creating new products (probably with amazon service, like S3)
-Two-factor authentication (probably with email)
-Sign-up/Login/Logout for users (already implemented in the backend but not in the frontend)
-Implement a feature where users can select and add products to a favourites list
-Implement refresh tokens with http only cookie (at the moment they are sent by http inside the auth header as a bearer type)
-More API protections, such as rate limiting
+-Create and update new categories and materials (Admin Dashboard)
+-Implement a feature so that the Admin can upload photos from their mobile phone/computer when creating new products (probably with amazon service, like S3)
+-Two-factor authentication (probably with email)
+-Sign-up/Login/Logout for users (already implemented in the backend but not in the frontend)
+-Implement a feature where users can select and add products to a favourites list
+-Implement refresh tokens with http only cookie (at the moment they are sent by http inside the auth header as a bearer type)
+-More API protections, such as rate limiting

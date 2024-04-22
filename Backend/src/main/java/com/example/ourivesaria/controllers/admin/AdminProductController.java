@@ -14,7 +14,7 @@ import java.util.List;
 import java.util.Optional;
 
 @RestController
-@CrossOrigin(origins = "https://ourivesaria-webapp.onrender.com", maxAge = 3600)
+@CrossOrigin(origins = "https://ourivesaria.onrender.com", maxAge = 3600)
 @RequestMapping("/admin/product")
 public class AdminProductController {
 

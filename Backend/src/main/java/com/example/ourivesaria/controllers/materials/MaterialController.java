@@ -10,7 +10,7 @@ import org.springframework.web.bind.annotation.*;
 import java.util.List;
 
 @RestController
-@CrossOrigin(origins = "https://ourivesaria-webapp.onrender.com", maxAge = 3600)
+@CrossOrigin(origins = "https://ourivesaria.onrender.com", maxAge = 3600)
 @RequestMapping("/api/products/material")
 public class MaterialController {
 

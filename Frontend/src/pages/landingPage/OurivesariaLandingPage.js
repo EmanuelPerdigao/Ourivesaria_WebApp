@@ -17,7 +17,7 @@ export const OurivesariaLandingPage = () => {
     };
 
     useEffect(() => {
-        //showAlert();
+        showAlert();
     }, []);
 
     return (

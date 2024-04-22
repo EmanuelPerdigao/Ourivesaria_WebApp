@@ -8,7 +8,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 
 @RestController
-@CrossOrigin(origins = "*", maxAge = 3600)
+@CrossOrigin(origins = "https://ourivesaria-webapp.onrender.com", maxAge = 3600)
 @RequestMapping("/admin/auth")
 public class AdminAuthController {
 

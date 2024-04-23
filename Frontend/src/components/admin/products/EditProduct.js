@@ -73,7 +73,7 @@ function EditProduct(props) {
                                         <input id="ProductName"
                                             type="text"
                                             placeholder='Product name'
-                                            autocomplete="email"
+                                            autoComplete="off"
                                             value={productNamePlaceHolder}
                                             onChange={(e) => { setProductNamePlaceHolder(e.target.value) }}
                                             required className="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6">
@@ -85,6 +85,7 @@ function EditProduct(props) {
                                         <input id="ProductDescription"
                                             type="text"
                                             placeholder='Product description'
+                                            autoComplete="off"
                                             value={descriptionPlaceHolder}
                                             onChange={(e) => { setDescriptionPlaceHolder(e.target.value) }}
                                             required className="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6">

@@ -1,4 +1,4 @@
-# Ourivesaria-Rilho-webapp
+# Ourivesaria-webapp
 
 
 In order to gain more experience, I decided to make a web application for a family store. This website is a prototype of the original version, so all the data and information are not real.

@@ -28,7 +28,7 @@ function AddProduct(props) {
             }}
             className="block mx-auto m-2 bg-gray-900 hover:bg-gray-800 text-white font-bold py-2 px-4 rounded">+ Add Product</button>
 
-            <Modal show={props.show} onHide={handleClose}>
+            <Modal show={props.show} onHide={handleClose} centered size='xl' style={{ height: '100vh' }}>
                 <Modal.Header closeButton>
                     <Modal.Title>Add Product</Modal.Title>
                 </Modal.Header>
@@ -78,9 +78,10 @@ function AddProduct(props) {
 
                                     <label for="ProductName" className="block text-sm font-medium leading-6 text-gray-900">Product Name</label>
                                     <div className="mt-2">
-                                        <input id="name"
+                                        <input id="ProductName"
                                             type="text"
                                             placeholder='Product name'
+                                            autoComplete="off"
                                             Value={productName}
                                             onChange={(e) => { setProductName(e.target.value) }}
                                             required className="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6">
@@ -92,6 +93,7 @@ function AddProduct(props) {
                                         <input id="ProductDescription"
                                             type="text"
                                             placeholder='Product description'
+                                            autoComplete="off"
                                             value={productDescription}
                                             onChange={(e) => { setProductDescription(e.target.value) }}
                                             required className="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6">

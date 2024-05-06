@@ -15,9 +15,7 @@ import org.springframework.security.core.context.SecurityContext;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.oauth2.jwt.Jwt;
-import org.springframework.security.oauth2.jwt.JwtDecoder;
 import org.springframework.security.oauth2.jwt.JwtValidationException;
-import org.springframework.security.oauth2.jwt.NimbusJwtDecoder;
 import org.springframework.security.web.authentication.WebAuthenticationDetailsSource;
 import org.springframework.web.filter.OncePerRequestFilter;
 import org.springframework.web.server.ResponseStatusException;
@@ -46,52 +44,23 @@ public class JwtAccessTokenFilter extends OncePerRequestFilter {
 
         try{
             log.info("[JwtAccessTokenFilter:doFilterInternal] :: Started ");
-
             log.info("[JwtAccessTokenFilter:doFilterInternal]Filtering the Http Request:{}",request.getRequestURI());
 
             final String authHeader = request.getHeader(HttpHeaders.AUTHORIZATION);
 
-            //Confirm that there's any auth header inside the request if it doesn't send a 401 http response back
-            if (authHeader == null) {
-
-                log.warn("[JwtAccessTokenFilter:doFilterInternal] No Authorization header provided.");
-
-                // Set the HTTP status code to 401 Unauthorized
-                response.setStatus(HttpServletResponse.SC_UNAUTHORIZED);
-
-                // Add a custom error message to the response
-                response.getWriter().write("No authorization provided. Please log in.");
-
-                return;
-
-            } else if (!authHeader.startsWith(TokenTypes.Bearer.name())) {
-                filterChain.doFilter(request,response);
+            // Try to validate AuthHeader if it isn't valid or expired return 401
+            if (!isAuthHeaderValid(authHeader, request, response, filterChain)) {
                 return;
             }
 
-            final String token;
-            final Jwt jwtToken;
+            // Try to decode the token if it isn't valid or expired return 401
+            Jwt jwtToken = jwtTokenUtils.decodeJwtToken(rsaKeyRecord, response, authHeader);
 
-            try{
-                JwtDecoder jwtDecoder =  NimbusJwtDecoder.withPublicKey(rsaKeyRecord.rsaPublicKey()).build();
-
-                token = authHeader.substring(7);
-                jwtToken = jwtDecoder.decode(token);
-
-            }catch (Exception exception){
-
-                log.error("[JwtAccessTokenFilter:doFilterInternal] Exception due to :{}",exception.getMessage());
-
-                // Set the HTTP status code to 401 Unauthorized
-                response.setStatus(HttpServletResponse.SC_UNAUTHORIZED);
-
-                // Add a custom error message to the response
-                response.getWriter().write("Token invalid request another token or login again!");
-
+            if(jwtToken == null){
                 return;
             }
 
-
+            log.info("[JwtAccessTokenFilter:doFilterInternal] Token is valid and is decoded");
 
             final String userName = jwtTokenUtils.getUserName(jwtToken);
 
@@ -126,7 +95,6 @@ public class JwtAccessTokenFilter extends OncePerRequestFilter {
                     return;
                 }
 
-
             }
             log.info("[JwtAccessTokenFilter:doFilterInternal] Completed");
 
@@ -139,4 +107,20 @@ public class JwtAccessTokenFilter extends OncePerRequestFilter {
 
     }
 
+    private boolean isAuthHeaderValid(String authHeader, HttpServletRequest request, HttpServletResponse response, FilterChain filterChain) throws IOException, ServletException {
+
+        //############################     Check if the Authorization header is present and valid ############################
+        if(authHeader == null || !authHeader.startsWith(TokenTypes.Bearer.name())) {
+            log.warn("[JwtAccessTokenFilter:doFilterInternal] No Authorization header provided.");
+
+            // Set the HTTP status code to 401 Unauthorized
+            response.setStatus(HttpServletResponse.SC_UNAUTHORIZED);
+
+            // Add a custom error message to the response
+            response.getWriter().write("No authorization provided. Please log in.");
+
+            return false;
+        }
+        return true;
+    }
 }

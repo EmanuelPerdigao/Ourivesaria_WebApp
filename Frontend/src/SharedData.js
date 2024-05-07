@@ -1,2 +1,1 @@
-/* export const baseURL = 'http://localhost:8080/'; */
-export const baseURL = 'https://ourivesaria-webapp.onrender.com/';
+export const baseURL = process.env.REACT_APP_SERVER_BASE_URL;

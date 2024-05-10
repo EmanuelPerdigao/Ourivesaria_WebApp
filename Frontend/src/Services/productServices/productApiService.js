@@ -1,5 +1,5 @@
-import {sendRequest} from "./apiGenericService";
-import { baseURL } from "../SharedData";
+import {sendRequest} from "../apiGenericService";
+import { baseURL } from "../../SharedData";
 import { useNavigate, useLocation } from "react-router-dom";
 
 

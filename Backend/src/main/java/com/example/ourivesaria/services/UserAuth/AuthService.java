@@ -182,7 +182,7 @@ public class AuthService {
      * This method is used to register a new user by creating a new UserEntity in the database
      * @param userDto : DTO object containing user details
      * @param httpServletResponse : HttpServletResponse to set the cookie
-     * @return : JwtTokenDto containing accessToken and userName
+     * @return : JwtTokenDto containing accessToken and name
      */
     public JwtTokenDto registerUser(UserDto userDto, HttpServletResponse httpServletResponse){
 
@@ -190,7 +190,7 @@ public class AuthService {
             log.info("[AuthService:registerUser]User Registration Started with :::{}", userDto);
 
             // Check if user already exists in DB by email
-            Optional<UserEntity> user = userRepository.findByEmailId(userDto.userEmail());
+            Optional<UserEntity> user = userRepository.findByEmailId(userDto.emailId());
 
             // Throw an exception if user already exists
             if(user.isPresent()){

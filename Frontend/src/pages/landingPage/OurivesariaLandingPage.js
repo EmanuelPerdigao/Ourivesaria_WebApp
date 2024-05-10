@@ -6,7 +6,7 @@ import GoldSectionImg from '../../Images/GoldSection.jpg'
 import SilverSectionImg from '../../Images/SilverSection.jpg'
 import OthersSectionImg from '../../Images/OtherSection.jpg'
 import EngravingImageSection from '../../Images/EngravingImageSection.jpg'
-import {apiWakeUpServer} from "../../Services/serverApiService";
+import {apiWakeUpServer} from "../../Services/serverServices/serverApiService";
 
 export const OurivesariaLandingPage = () => {
 
@@ -19,7 +19,7 @@ export const OurivesariaLandingPage = () => {
 
     useEffect(() => {
         apiWakeUpServer();
-        showAlert();       
+        //showAlert();
     }, []);
 
     return (

@@ -18,12 +18,12 @@ public class UserMapper {
         UserEntity userEntity = new UserEntity();
 
         userEntity.setUserName(userDto.userName());
-        userEntity.setEmailId(userDto.userEmail());
-        userEntity.setMobileNumber(userDto.userMobileNo());
+        userEntity.setEmailId(userDto.emailId());
+        userEntity.setMobileNumber(userDto.mobileNumber());
 
         //all new users are created with user role
         userEntity.setRoles(UserRoles.ROLE_USER);
-        userEntity.setPassword(passwordEncoder.encode(userDto.userPassword()));
+        userEntity.setPassword(passwordEncoder.encode(userDto.password()));
 
         return userEntity;
 

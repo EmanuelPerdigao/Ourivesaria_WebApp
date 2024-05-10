@@ -9,6 +9,8 @@ import { ProductsPage } from './pages/products/ProductsPage';
 import Error from './pages/errors/Error';
 import ErrorServerDown from './pages/errors/ErrorServerDown';
 import Login from './pages/UserAuth/Login';
+import SignUp from './pages/UserAuth/SignUp';
+import { baseURL } from "./SharedData";
 
 export const LoginContext = createContext();
 
@@ -24,6 +26,40 @@ function App() {
         }
     }
 
+
+    //######################################## User Token Validation #################################################
+
+    const validateUserToken = async () => {
+        const headers = {
+            'Content-Type': 'application/json',
+            'Authorization': 'Bearer ' + localStorage.getItem('access'),
+        };
+    
+        try {
+            const response = await fetch(baseURL + 'user/auth/token/validate', {
+                method: 'GET',
+                headers: headers
+            });
+    
+            if (!response.ok) {
+                // Handle unauthorized or other error responses
+                setLoggedIn(false);
+                localStorage.clear();
+                return;
+            }
+
+        } catch (error) {
+            // Handle fetch error if needed
+            console.error('Error fetching user token:', error);
+        }
+    };
+
+    useEffect(() => {
+        if (localStorage.access) {
+            validateUserToken();
+        }
+    })
+
     return (
         <LoginContext.Provider value={[loggedIn, changeLoggedIn]}>
             <BrowserRouter>
@@ -32,12 +68,13 @@ function App() {
                 <Routes>
                     <Route path='/' element={<OurivesariaLandingPage />} />
                     <Route path='/admin' element={<AdminPage />} />
-                    <Route path='/login' element={<Login />} />                    
+                    <Route path='/login' element={<Login />} />
+                    <Route path='/register' element={<SignUp />} />
                     <Route path='/404' element={<NotFound />} />
-                    <Route path='/error' element={<Error/>} />
-                    <Route path='/errorServerDown' element={<ErrorServerDown/>} />
-                    <Route path='/NewHeader' element={<Header />} />                                      
-                    <Route path='/productspage' element={<ProductsPage/>} />
+                    <Route path='/error' element={<Error />} />
+                    <Route path='/errorServerDown' element={<ErrorServerDown />} />
+                    <Route path='/NewHeader' element={<Header />} />
+                    <Route path='/productspage' element={<ProductsPage />} />
                     <Route path='/*' element={<NotFound />} />
                 </Routes>
 

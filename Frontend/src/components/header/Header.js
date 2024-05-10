@@ -5,9 +5,9 @@ import { LoginContext } from '../../App'
 
 const navigation = [
 
-    { name: 'A nossa história', href: '/#historia'},
-    { name: 'Os nossos produtos', href: '/#produtos'},
-    { name: 'Onde nos encontrar', href: '/#localizacao'},
+    { name: 'A nossa história', href: '/#historia' },
+    { name: 'Os nossos produtos', href: '/#produtos' },
+    { name: 'Onde nos encontrar', href: '/#localizacao' },
 
 ]
 
@@ -32,12 +32,12 @@ export default function NewHeader() {
                                 {/* Mobile menu button */}
                                 <div className="absolute inset-y-0 left-[85%] flex items-center sm:hidden">
                                     <Disclosure.Button className="relative inline-flex items-center justify-center rounded-md p-2 text-gray-400 hover:text-black focus:outline-none focus:ring-2 focus:ring-inset focus:ring-white">
-                                        <span className="absolute -inset-0.5"/>
+                                        <span className="absolute -inset-0.5" />
                                         <span className="sr-only">Open main menu</span>
                                         {open ? (
-                                            <XMarkIcon className="block h-6 w-6" aria-hidden="true"/>
+                                            <XMarkIcon className="block h-6 w-6" aria-hidden="true" />
                                         ) : (
-                                            <Bars3Icon className="block h-6 w-6" aria-hidden="true"/>
+                                            <Bars3Icon className="block h-6 w-6" aria-hidden="true" />
                                         )}
                                     </Disclosure.Button>
                                 </div>
@@ -65,6 +65,55 @@ export default function NewHeader() {
                                                     </a>
                                                 </div>
                                             ))}
+
+                                            {/* Login button/Register button */}
+                                            {!loggedIn && (
+                                                <>
+                                                    <div className="flex justify-center text-center">
+                                                        <a
+                                                            href="/login"
+                                                            className={classNames(
+                                                                'text-lg font-inter font-medium hover:font-bold text-gray-900 px-4'
+                                                            )}
+                                                            style={{ textDecoration: 'none' }}
+                                                        >
+                                                            Login
+                                                        </a>
+                                                    </div>
+
+                                                    
+                                                    <div className="flex justify-center text-center">
+                                                        <a
+                                                            href="/register"
+                                                            className={classNames(
+                                                                'text-lg font-inter font-medium hover:font-bold text-gray-900 px-4'
+                                                            )}
+                                                            style={{ textDecoration: 'none' }}
+                                                        >
+                                                            Register
+                                                        </a>
+                                                    </div>
+                                                </>
+                                            )}
+
+                                            {/* Logout button */}
+                                            {loggedIn && (
+                                                <div className="flex justify-center text-center">
+                                                    <a
+                                                        onClick={() => {
+                                                            setLoggedIn(false);
+                                                            localStorage.clear();
+                                                        }}
+                                                        className={classNames(
+                                                            'text-lg font-inter font-medium hover:font-bold text-gray-900 px-4'
+                                                        )}
+                                                        style={{ textDecoration: 'none' }}
+                                                    >
+                                                        Logout
+                                                    </a>
+                                                </div>
+                                            )}
+
                                         </div>
                                     </div>
                                 </div>

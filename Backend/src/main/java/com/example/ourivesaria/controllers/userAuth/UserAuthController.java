@@ -2,12 +2,12 @@ package com.example.ourivesaria.controllers.userAuth;
 
 import com.example.ourivesaria.dtos.users.UserDto;
 import com.example.ourivesaria.services.UserAuth.AuthService;
+import com.example.ourivesaria.services.email.EmailSendingService;
 import jakarta.servlet.http.HttpServletResponse;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.context.support.DefaultMessageSourceResolvable;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -16,7 +16,7 @@ import org.springframework.security.core.Authentication;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 
-import java.util.List;
+import java.util.*;
 
 @RestController
 @CrossOrigin(origins = "*", maxAge = 3600)
@@ -28,6 +28,17 @@ public class UserAuthController {
     @Autowired
     private AuthService authService;
 
+    @Autowired
+    private EmailSendingService emailSendingService;
+
+
+
+    //#############################  USER TOKEN VALIDATION  ####################################
+    @GetMapping("/token/validate")
+    public ResponseEntity<?> validateToken(){
+        return ResponseEntity.ok(HttpStatus.OK);
+    }
+
 
     //#############################  SIGN-UP USER / REGISTER NEW USER  ####################################
     @PostMapping("/sign-up")
@@ -35,11 +46,16 @@ public class UserAuthController {
 
 
         if (bindingResult.hasErrors()) {
-            List<String> errorMessage = bindingResult.getAllErrors().stream()
-                    .map(DefaultMessageSourceResolvable::getDefaultMessage)
-                    .toList();
-            return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(errorMessage);
+
+            Map<String, String> errors = new HashMap<>();
+
+            // Get the error field and error message
+            bindingResult.getFieldErrors().forEach(error -> errors.put(error.getField(), error.getDefaultMessage()));
+
+            return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(errors);
         }
+
+        emailSendingService.sendEmail(userDto.emailId(), "Welcome to Ourivesaria", "Welcome to Ourivesaria");
 
         return ResponseEntity.ok(authService.registerUser(userDto,httpServletResponse));
     }

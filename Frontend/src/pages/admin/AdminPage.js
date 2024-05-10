@@ -5,7 +5,7 @@ import { baseURL } from '../../SharedData';
 import { ProductsFilter } from '../../components/products/ProductsPageFilters/ProductsFilter';
 import EditProduct from '../../components/admin/products/EditProduct';
 import AddProduct from '../../components/admin/products/AddProduct';
-import { apigetProducts, apigetAllCategories, apigetAllMaterials, apigetAllProductsByCategory, apigetAllProductsByCategoryAndMaterial, apigetAllMaterialsByCategory, apiaddProductByCategory, apiupdateProduct, apideleteProduct } from '../../Services/productApiService';
+import { apigetProducts, apigetAllCategories, apigetAllMaterials, apigetAllProductsByCategory, apigetAllProductsByCategoryAndMaterial, apigetAllMaterialsByCategory, apiaddProductByCategory, apiupdateProduct, apideleteProduct } from '../../Services/productServices/productApiService';
 
 export default function NewAdminPage() {
 
@@ -279,8 +279,6 @@ export default function NewAdminPage() {
             const response = await sendRequest('GET', baseURL + 'admin/auth/', {}, headers, navigate, location.pathname);
 
             getAllProducts();
-
-
             setLoading(false);
 
         } catch (e) {

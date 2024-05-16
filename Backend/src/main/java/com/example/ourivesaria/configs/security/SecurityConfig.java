@@ -91,7 +91,7 @@ public class SecurityConfig  {
         return httpSecurity
                 .securityMatcher(new AntPathRequestMatcher("/user/auth/token/validate"))                                                      //Tell spring security which endpoint will apply the following filters
                 .csrf(AbstractHttpConfigurer::disable)                                                                              //disable Cross Site Request Forgery because I'm working with jwt tokens and future problems may arise if enabled
-                .authorizeHttpRequests(auth -> auth.requestMatchers("/user/auth/token/validate").hasAnyAuthority("SCOPE_USER"))   //define who is allowed to access the URL based on roles, authority
+                .authorizeHttpRequests(auth -> auth.requestMatchers("/user/auth/token/validate").hasAnyAuthority("SCOPE_USER","SCOPE_ADMIN"))   //define who is allowed to access the URL based on roles, authority
                 .oauth2ResourceServer(oauth2 -> oauth2.jwt(Customizer.withDefaults()))                                              //Intercepts requests, extracts any Bearer Tokens and attempts to authenticate
                 .sessionManagement(session -> session.sessionCreationPolicy(SessionCreationPolicy.STATELESS))                       //Sets the session creation policy to stateless, which means that the application will not create an HTTP session and will not use it for storing security-related information
                 .addFilterBefore(new JwtAccessTokenFilter(rsaKeyRecord, jwtTokenUtils), UsernamePasswordAuthenticationFilter.class) //Authenticate the jwt access token to check if it is valid and if it is autenticate the user with username and password

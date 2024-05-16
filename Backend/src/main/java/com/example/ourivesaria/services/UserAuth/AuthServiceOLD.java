@@ -3,15 +3,14 @@ package com.example.ourivesaria.services.UserAuth;
 import com.example.ourivesaria.configs.jwtConfig.JwtTokenGenerator;
 import com.example.ourivesaria.dtos.jwtTokens.JwtTokenDto;
 import com.example.ourivesaria.dtos.users.UserDto;
+import com.example.ourivesaria.entities.refreshTokens.RefreshTokenEntity;
 import com.example.ourivesaria.entities.users.UserEntity;
 import com.example.ourivesaria.entities.users.UserSignUpToken;
+import com.example.ourivesaria.enums.TokenTypes;
 import com.example.ourivesaria.mappers.users.UserMapper;
 import com.example.ourivesaria.repositories.RefreshTokens.RefreshTokenRepo;
 import com.example.ourivesaria.repositories.users.UserRepository;
-import com.example.ourivesaria.enums.TokenTypes;
-import com.example.ourivesaria.entities.refreshTokens.RefreshTokenEntity;
 import com.example.ourivesaria.services.UserAuth.SignUpToken.UserSignUpTokenServiceImpl;
-import com.example.ourivesaria.services.email.EmailSendingService;
 import com.example.ourivesaria.services.email.EmailSendingSignUpConfirmationService;
 import jakarta.servlet.http.Cookie;
 import jakarta.servlet.http.HttpServletResponse;
@@ -30,7 +29,7 @@ import java.util.Optional;
 @Service
 @RequiredArgsConstructor
 @Slf4j
-public class AuthService {
+public class AuthServiceOLD {
 
     private final UserRepository userRepository;
     private final JwtTokenGenerator jwtTokenGenerator;
@@ -184,113 +183,90 @@ public class AuthService {
     }
 
 
-    public JwtTokenDto authenticateUser(UserDto userDto, HttpServletResponse httpServletResponse) {
-        try {
+    // ##############################  SIGN-UP USER / REGISTER NEW USER  ####################################
+    /**
+     * This method is used to register a new user by creating a new UserEntity in the database
+     * @param userDto : DTO object containing user details
+     * @param httpServletResponse : HttpServletResponse to set the cookie
+     * @return : JwtTokenDto containing accessToken and name
+     */
+    public JwtTokenDto registerUser(UserDto userDto, HttpServletResponse httpServletResponse){
+
+        try{
             log.info("[AuthService:registerUser]User Registration Started with :::{}", userDto);
 
             // Check if user already exists in DB by email
             Optional<UserEntity> user = userRepository.findByEmailId(userDto.emailId());
-            if (user.isPresent()) {
-                // Handle the case where the user already exists
-                handleExistingUser(user.get());
-            } else {
-                // Register a new user
-                return registerNewUser(userDto, httpServletResponse);
-            }
 
-        } catch (Exception e) {
-            log.error("[AuthService:registerUser]Exception while registering the user due to :" + e.getMessage());
-            throw new ResponseStatusException(HttpStatus.BAD_REQUEST, e.getMessage());
-        }
-        return null;
-    }
+            // Throw an exception if user already exists
+            if(user.isPresent() && user.get().isValid()){
+                throw new Exception("User Already Exist");
+            }else if(user.isPresent()){
 
-    /**
-     * Handles the existing user registration process.
-     * @param user The existing user entity.
-     * @throws Exception if the user is already valid.
-     */
-    private void handleExistingUser(UserEntity user) throws Exception {
-        if (user.isValid()) {
-            throw new Exception("User Already Exist");
-        } else {
-            // If user is not valid, send a confirmation email with the existing token
-            Optional<UserSignUpToken> userSignUpTokenEntity = userSignUpTokenService.findByUser(user);
+                //send email verification
+                // Convert UserDto to UserEntity
+                UserEntity userEntity = userMapper.convertToEntity(userDto);
 
-            //TODO: generate anoter token if the token is NULL
-            if (userSignUpTokenEntity.isPresent() && userSignUpTokenEntity.get().getToken() != null) {
-                {
-                    emailSendingService.sendEmail(user.getEmailId(), "Confirmation Email",
-                            "Welcome to Ourivesaria \n Please verify your email by clicking on the link below \n http://localhost:3000/user/verify/" + userSignUpTokenEntity.get().getToken());
+                //tem que ir buscar o token já existente do user
+
+                Optional<UserSignUpToken> userSignUpTokenEntity = userSignUpTokenService.findByUser(user.get());
+
+                if(userSignUpTokenEntity.isPresent()){
+                    //ir buscar o token que ja tinha sido criado anteriormente e mandar para o email
+                    emailSendingService.sendEmail( userEntity.getEmailId(), "Confirmation Email", "Welcome to Ourivesaria \n Please verify your email by clicking on the link below \n http://localhost:3000/user/verify/" + userSignUpTokenEntity.get().getToken() );
                 }
+
+
+            }else {
+
+                // Convert UserDto to UserEntity
+                UserEntity userEntity = userMapper.convertToEntity(userDto);
+
+                // Create Autentication Object from UserEntity
+                Authentication authentication = createAuthenticationObject(userEntity);
+
+                // Generate a JWT token
+                String accessToken = jwtTokenGenerator.generateAccessToken(authentication);
+
+                // Generate a Refresh Token
+                String refreshToken = jwtTokenGenerator.generateRefreshToken(authentication);
+
+                // Save user in DB
+                UserEntity savedUser = userRepository.save(userEntity);
+
+                // Save the refresh token in DB
+                saveRefreshTokenInDB(userEntity,refreshToken);
+
+                // Create refresh token cookie and add it to the response http servlet object
+                creatRefreshTokenCookie(httpServletResponse,refreshToken);
+
+                log.info("[AuthService:registerUser] User:{} Successfully registered",savedUser.getUserName());
+
+                String userSignUpToken = userSignUpTokenService.generateToken();
+
+                emailSendingService.sendEmail( userEntity.getEmailId(), "Confirmation Email", "Welcome to Ourivesaria \n Please verify your email by clicking on the link below \n http://localhost:3000/user/verify/"+ userSignUpToken );
+
+                UserSignUpToken userSignUpTokenEntity = new UserSignUpToken();
+
+                userSignUpTokenEntity.setUser(savedUser);
+                userSignUpTokenEntity.setToken(userSignUpToken);
+
+                userSignUpTokenService.saveToken(userSignUpTokenEntity);
+
+                // Return JwtTokenDto with the access token
+                return   JwtTokenDto.builder()
+                        .accessToken(accessToken)
+                        .accessTokenExpiry(accessTokenExpiryTimeInMins * 60)
+                        .userName(savedUser.getUserName())
+                        .tokenTypes(TokenTypes.Bearer)
+                        .build();
             }
+
+        }catch (Exception e){
+            log.error("[AuthService:registerUser]Exception while registering the user due to :"+e.getMessage());
+            throw new ResponseStatusException(HttpStatus.BAD_REQUEST,e.getMessage());
         }
-    }
 
-
-    // ##############################  SIGN-UP USER / REGISTER NEW USER  ####################################
-    /**
-     * Registers a new user and sends a confirmation email.
-     * @param userDto DTO object containing user details.
-     * @param httpServletResponse HttpServletResponse to set the cookie.
-     * @return JwtTokenDto containing accessToken and name.
-     * @throws Exception if there is an error during registration.
-     */
-    private JwtTokenDto registerNewUser(UserDto userDto, HttpServletResponse httpServletResponse) throws Exception {
-
-        // Convert UserDto to UserEntity
-        UserEntity userEntity = userMapper.convertToEntity(userDto);
-
-        // Save user in DB
-        UserEntity savedUser = userRepository.save(userEntity);
-
-        // Generate a signup token and send a confirmation email
-        String userSignUpToken = userSignUpTokenService.generateToken();
-
-        // Save the signup token in the database
-        UserSignUpToken userSignUpTokenEntity = new UserSignUpToken();
-        userSignUpTokenEntity.setUser(savedUser);
-        userSignUpTokenEntity.setToken(userSignUpToken);
-        userSignUpTokenService.saveToken(userSignUpTokenEntity);
-
-        emailSendingService.sendEmail(userEntity.getEmailId(), "Confirmation Email",
-                "Welcome to Ourivesaria \n Please verify your email by clicking on the link below \n http://localhost:3000/user/verify/" + userSignUpToken);
-
-        // Generate and save tokens, then return the token DTO
-        return generateAndSaveTokens(savedUser, httpServletResponse);
-    }
-
-    /**
-     * Generates JWT tokens, saves the refresh token in the database and as a cookie.
-     * @param userEntity The user entity.
-     * @param httpServletResponse HttpServletResponse to set the cookie.
-     * @return JwtTokenDto containing accessToken and name.
-     */
-    //TODO: alterar esta função só ser chamada depois de o user clicar no url de confirmar email e returnar o token nessa altura
-    private JwtTokenDto generateAndSaveTokens(UserEntity userEntity, HttpServletResponse httpServletResponse) {
-
-        // Create an authentication object from the user entity
-        Authentication authentication = createAuthenticationObject(userEntity);
-
-        // Generate access and refresh tokens
-        String accessToken = jwtTokenGenerator.generateAccessToken(authentication);
-        String refreshToken = jwtTokenGenerator.generateRefreshToken(authentication);
-
-        // Save the refresh token in the database
-        saveRefreshTokenInDB(userEntity, refreshToken);
-
-        // Create a refresh token cookie and add it to the response
-        creatRefreshTokenCookie(httpServletResponse, refreshToken);
-
-        log.info("[AuthService:registerUser] User:{} Successfully registered", userEntity.getUserName());
-
-        return JwtTokenDto.builder()
-                .accessToken(accessToken)
-                .accessTokenExpiry(accessTokenExpiryTimeInMins * 60)
-                .userName(userEntity.getUserName())
-                .tokenTypes(TokenTypes.Bearer)
-                .build();
-    }
-
+        return null;
     }
 }

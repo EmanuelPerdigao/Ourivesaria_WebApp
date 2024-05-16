@@ -42,12 +42,14 @@ public class H2Config implements CommandLineRunner {
         admin.setPassword(passwordEncoder.encode("admin"));
         admin.setRoles(UserRoles.ROLE_ADMIN);
         admin.setEmailId("admin@gmail.com");
+        admin.setValid(true);
 
         UserEntity user = new UserEntity();
         user.setUserName("user");
         user.setPassword(passwordEncoder.encode("1234"));
         user.setRoles(UserRoles.ROLE_USER);
         user.setEmailId("user@gmail.com");
+        user.setValid(true);
 
         List<UserEntity> userList = new ArrayList<>();
 

@@ -68,4 +68,5 @@ public interface ProductService {
     ;
 
     List<ProductEntity> listAllProductsByCategoryIdAndMaterialId(Long categoryId, Long materialId);
+
 }

@@ -23,6 +23,10 @@ public class UserMapper {
 
         //all new users are created with user role
         userEntity.setRoles(UserRoles.ROLE_USER);
+
+        //all new users are block by default until they confirm email
+        userEntity.setValid(false);
+
         userEntity.setPassword(passwordEncoder.encode(userDto.password()));
 
         return userEntity;

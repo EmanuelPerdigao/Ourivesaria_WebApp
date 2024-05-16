@@ -1,6 +1,7 @@
 package com.example.ourivesaria.controllers.userAuth;
 
 import com.example.ourivesaria.dtos.users.UserDto;
+import com.example.ourivesaria.entities.products.ProductEntity;
 import com.example.ourivesaria.services.UserAuth.AuthService;
 import com.example.ourivesaria.services.email.EmailSendingService;
 import jakarta.servlet.http.HttpServletResponse;
@@ -34,10 +35,13 @@ public class UserAuthController {
 
 
     //#############################  USER TOKEN VALIDATION  ####################################
-    @GetMapping("/token/validate")
-    public ResponseEntity<?> validateToken(){
-        return ResponseEntity.ok(HttpStatus.OK);
+    @GetMapping("/token/validate/{token}")
+    public ResponseEntity<?> validateToken(@PathVariable String token) {
+
+        return ResponseEntity.ok(token);
     }
+
+
 
 
     //#############################  SIGN-UP USER / REGISTER NEW USER  ####################################
@@ -55,7 +59,7 @@ public class UserAuthController {
             return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(errors);
         }
 
-        emailSendingService.sendEmail(userDto.emailId(), "Welcome to Ourivesaria", "Welcome to Ourivesaria");
+
 
         return ResponseEntity.ok(authService.registerUser(userDto,httpServletResponse));
     }

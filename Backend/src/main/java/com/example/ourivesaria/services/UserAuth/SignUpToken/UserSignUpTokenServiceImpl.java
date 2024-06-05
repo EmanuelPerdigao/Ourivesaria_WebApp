@@ -31,6 +31,11 @@ public class UserSignUpTokenServiceImpl implements UserSignUpTokenService{
     }
 
     @Override
+    public Optional<UserSignUpToken> findByToken(String token) {
+        return userSignUpTokenRepository.findByToken(token);
+    }
+
+    @Override
     public Optional<UserSignUpToken> getById(Long id) {
         return userSignUpTokenRepository.findById(id);
     }

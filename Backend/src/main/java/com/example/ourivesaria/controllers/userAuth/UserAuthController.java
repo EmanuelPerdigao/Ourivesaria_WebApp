@@ -1,7 +1,9 @@
 package com.example.ourivesaria.controllers.userAuth;
 
+import com.example.ourivesaria.dtos.jwtTokens.JwtTokenDto;
 import com.example.ourivesaria.dtos.users.UserDto;
 import com.example.ourivesaria.entities.products.ProductEntity;
+import com.example.ourivesaria.responses.ApiResponse;
 import com.example.ourivesaria.services.UserAuth.AuthService;
 import com.example.ourivesaria.services.email.EmailSendingService;
 import jakarta.servlet.http.HttpServletResponse;
@@ -34,14 +36,29 @@ public class UserAuthController {
 
 
 
+    // This is for verify the token that is inside the localstorage of the user and confirm if its valid or not
     //#############################  USER TOKEN VALIDATION  ####################################
     @GetMapping("/token/validate/{token}")
     public ResponseEntity<?> validateToken(@PathVariable String token) {
 
-        return ResponseEntity.ok(token);
+        return ResponseEntity.ok("Token is valid");
     }
 
 
+    //#############################  USER Sign-Up TOKEN VALIDATION  ####################################
+    //                            This is to validate the sign-up token
+    @GetMapping("/UserSignUpToken/validate/{token}")
+    public ResponseEntity<?> validateUserSignUpToken(@PathVariable String token, HttpServletResponse httpServletResponse) {
+
+        ApiResponse response = authService.validateUserRegistrationToken(token, httpServletResponse);
+
+        if(!response.getSuccess()){
+            return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(response.getMessage());
+        }else{
+            return ResponseEntity.ok(response);
+        }
+
+    }
 
 
     //#############################  SIGN-UP USER / REGISTER NEW USER  ####################################
@@ -59,9 +76,21 @@ public class UserAuthController {
             return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(errors);
         }
 
+        try {
 
+            ApiResponse response = authService.registerUser(userDto,httpServletResponse);
 
-        return ResponseEntity.ok(authService.registerUser(userDto,httpServletResponse));
+            if(!response.getSuccess()){
+                return ResponseEntity.status(HttpStatus.NOT_FOUND).body(response);
+
+            }else {
+                return ResponseEntity.ok(response);
+            }
+
+        }catch (Exception e) {
+            return ResponseEntity.status(HttpStatus.BAD_REQUEST).build();
+        }
+
     }
 
 

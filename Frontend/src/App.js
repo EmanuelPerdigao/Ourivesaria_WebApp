@@ -10,6 +10,7 @@ import Error from './pages/errors/Error';
 import ErrorServerDown from './pages/errors/ErrorServerDown';
 import Login from './pages/UserAuth/Login';
 import SignUp from './pages/UserAuth/SignUp';
+import EmailConfirmationPage from './pages/UserAuth/EmailConfirmationPage';
 import { baseURL } from "./SharedData";
 
 export const LoginContext = createContext();
@@ -75,6 +76,7 @@ function App() {
                     <Route path='/errorServerDown' element={<ErrorServerDown />} />
                     <Route path='/NewHeader' element={<Header />} />
                     <Route path='/productspage' element={<ProductsPage />} />
+                    <Route path='/user/verify*' element={<EmailConfirmationPage />} />
                     <Route path='/*' element={<NotFound />} />
                 </Routes>
 

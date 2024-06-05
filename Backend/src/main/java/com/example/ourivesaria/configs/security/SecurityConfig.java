@@ -85,7 +85,7 @@ public class SecurityConfig  {
                 .build();
     }
 
-    @Order(5)
+    @Order(7)
     @Bean
     public SecurityFilterChain userTokenValidateFilterChain(HttpSecurity httpSecurity) throws Exception{
         return httpSecurity
@@ -104,6 +104,23 @@ public class SecurityConfig  {
                 .build();
     }
 
+
+    @Order(8)
+    @Bean
+    public SecurityFilterChain userSignUpTokenValidateFilterChain(HttpSecurity httpSecurity) throws Exception{
+        return httpSecurity
+                .securityMatcher(new AntPathRequestMatcher("/user/auth/UserSignUpToken/validate/**"))
+                .csrf(AbstractHttpConfigurer::disable)
+                .authorizeHttpRequests(auth -> auth.anyRequest().permitAll())
+                .sessionManagement(session -> session.sessionCreationPolicy(SessionCreationPolicy.STATELESS))
+                .exceptionHandling(ex -> {
+                    log.error("[SecurityConfig:apiSecurityFilterChain] Exception due to :{}",ex);
+                    ex.authenticationEntryPoint(new BearerTokenAuthenticationEntryPoint());
+                    ex.accessDeniedHandler(new BearerTokenAccessDeniedHandler());
+                })
+                .httpBasic(Customizer.withDefaults())
+                .build();
+    }
 
     @Order(3)
     @Bean

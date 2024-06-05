@@ -51,4 +51,6 @@ public interface UserSignUpTokenService {
 
     Optional<UserSignUpToken> findByUser(UserEntity user);
 
+    Optional<UserSignUpToken> findByToken(String token);
+
 }

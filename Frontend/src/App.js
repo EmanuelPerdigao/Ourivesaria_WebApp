@@ -51,6 +51,8 @@ function App() {
 
         } catch (error) {
             // Handle fetch error if needed
+            setLoggedIn(false);
+            localStorage.clear();
             console.error('Error fetching user token:', error);
         }
     };

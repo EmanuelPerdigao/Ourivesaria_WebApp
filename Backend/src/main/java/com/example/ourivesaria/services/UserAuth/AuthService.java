@@ -11,7 +11,6 @@ import com.example.ourivesaria.repositories.users.UserRepository;
 import com.example.ourivesaria.enums.TokenTypes;
 import com.example.ourivesaria.entities.refreshTokens.RefreshTokenEntity;
 import com.example.ourivesaria.responses.ApiResponse;
-import com.example.ourivesaria.services.UserAuth.SignUpToken.UserSignUpTokenService;
 import com.example.ourivesaria.services.UserAuth.SignUpToken.UserSignUpTokenServiceImpl;
 import com.example.ourivesaria.services.email.EmailSendingSignUpConfirmationService;
 import jakarta.servlet.http.Cookie;
@@ -26,8 +25,6 @@ import org.springframework.stereotype.Service;
 import org.springframework.web.server.ResponseStatusException;
 
 import java.util.Arrays;
-import java.util.HashMap;
-import java.util.Map;
 import java.util.Optional;
 
 @Service
@@ -235,8 +232,7 @@ public class AuthService {
             //TODO: generate anoter token if the token is NULL
             if (userSignUpTokenEntity.isPresent() && userSignUpTokenEntity.get().getToken() != null) {
                 {
-                    emailSendingService.sendEmail(user.getEmailId(), "Confirmation Email",
-                            "Welcome to Ourivesaria \n Please verify your email by clicking on the link below \n http://localhost:3000/user/verify?register_token=" + userSignUpTokenEntity.get().getToken());
+                    emailSendingService.sendSignUpConfirmationEmail(user.getEmailId(),userSignUpTokenEntity.get().getToken());
 
                     return new ApiResponse(false, "User already exist, another confirmation email has been sent to your email. Please Verify Your Email");
                 }
@@ -274,14 +270,9 @@ public class AuthService {
         userSignUpTokenEntity.setToken(userSignUpToken);
         userSignUpTokenService.saveToken(userSignUpTokenEntity);
 
-        emailSendingService.sendEmail(userEntity.getEmailId(), "Confirmation Email",
-                "Welcome to Ourivesaria \n Please verify your email by clicking on the link below \n http://localhost:3000/user/verify?register_token=" + userSignUpToken);
-
+        emailSendingService.sendSignUpConfirmationEmail(userEntity.getEmailId(),userSignUpTokenEntity.getToken());
 
         return new ApiResponse(true, "User Registered Successfully, please verify your email address");
-
-        // Generate and save tokens, then return the token DTO
-        //return generateAndSaveTokens(savedUser, httpServletResponse);
     }
 
     /**
@@ -291,8 +282,7 @@ public class AuthService {
      * @param httpServletResponse HttpServletResponse to set the cookie.
      * @return JwtTokenDto containing accessToken and name.
      */
-    //TODO: alterar esta função só ser chamada depois de o user clicar no url de confirmar email e returnar o token nessa altura
-    private JwtTokenDto generateAndSaveTokens(UserEntity userEntity, HttpServletResponse httpServletResponse) {
+    private JwtTokenDto generateAndSaveJWTTokens(UserEntity userEntity, HttpServletResponse httpServletResponse) {
 
         // Create an authentication object from the user entity
         Authentication authentication = createAuthenticationObject(userEntity);
@@ -335,7 +325,7 @@ public class AuthService {
                 userRepository.save(user);
 
                 // Generate and save tokens, then return the token DTO
-                JwtTokenDto jwtTokenDto = generateAndSaveTokens(user, httpServletResponse);
+                JwtTokenDto jwtTokenDto = generateAndSaveJWTTokens(user, httpServletResponse);
 
                 return new ApiResponse(true, "User Verified Successfully", jwtTokenDto);
 

@@ -9,9 +9,11 @@ import org.springframework.stereotype.Service;
 @Service
 public class EmailSendingSignUpConfirmationService extends AbstractEmailSendingServiceImpl {
 
+    private final String subject = "Confirmation Email";
+    private final String bodyTemplate = "Welcome to Ourivesaria \n Please verify your email by clicking on the link below \n http://localhost:3000/user/verify?register_token=";
 
-    @Override
-    public void sendEmail(String to, String subject, String body) {
-        super.sendEmail(to, subject, body);
+    public void sendSignUpConfirmationEmail(String to, String token) {
+        String body = bodyTemplate + token;
+        sendEmail(to, subject, body);
     }
 }

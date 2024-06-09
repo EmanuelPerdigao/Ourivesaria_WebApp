@@ -6,6 +6,7 @@ import com.example.ourivesaria.entities.products.ProductEntity;
 import com.example.ourivesaria.responses.ApiResponse;
 import com.example.ourivesaria.services.UserAuth.AuthService;
 import com.example.ourivesaria.services.email.EmailSendingService;
+import com.example.ourivesaria.services.email.EmailSendingSignUpConfirmationService;
 import jakarta.servlet.http.HttpServletResponse;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
@@ -32,14 +33,14 @@ public class UserAuthController {
     private AuthService authService;
 
     @Autowired
-    private EmailSendingService emailSendingService;
+    private EmailSendingSignUpConfirmationService emailSendingService;
 
 
 
     // This is for verify the token that is inside the localstorage of the user and confirm if its valid or not
     //#############################  USER TOKEN VALIDATION  ####################################
-    @GetMapping("/token/validate/{token}")
-    public ResponseEntity<?> validateToken(@PathVariable String token) {
+    @GetMapping("/token/validate")
+    public ResponseEntity<?> validateToken() {
 
         return ResponseEntity.ok("Token is valid");
     }

@@ -1,4 +1,4 @@
-import { useEffect, useState, useContext } from "react";
+import { useEffect, useState, useContext, useRef } from "react";
 import { useNavigate, useLocation } from "react-router-dom";
 import { LoginContext } from "../../App";
 import { baseURL } from "../../SharedData";
@@ -11,40 +11,41 @@ export default function EmailConfirmationPage() {
     const [loggedIn, setLoggedIn] = useContext(LoginContext);
     const [loading, setLoading] = useState(true);
     const [emailConfirmed, setEmailConfirmed] = useState(false);
+    const hasFetched = useRef(false);  // Add a ref to track the fetch status
+
 
     useEffect(() => {
+        if (hasFetched.current) return;  // If already fetched, exit early
+
+        hasFetched.current = true;  // Set the ref to true to indicate the fetch has been initiated
 
         const queryParams = new URLSearchParams(location.search);
         const token = queryParams.get('register_token');
 
-
         fetch(baseURL + 'user/auth/UserSignUpToken/validate/' + token, {
             method: 'GET',
         })
-           
             .then((response) => {
-
                 if (!response.ok) {
                     setLoading(false);
                     setEmailConfirmed(false);
                     throw new Error('Something went wrong! try again!');
                 }
-                
                 return response.json();
             })
             .then((data) => {
-                
-                localStorage.setItem('access', data.access_token);
-                
+                console.log(data);
+                localStorage.clear();
+                localStorage.setItem('access', data.data.access_token);
                 setLoggedIn(true);
-
+                setEmailConfirmed(true);
                 alert('You email was confirmed successfully!');
                 navigate('/');
             })
             .catch((e) => {
                 console.log(e.message);
             });
-    }, [location]);
+    }, [location.search, navigate, setLoggedIn]);
 
     return (
         <div className="h-screen w-screen flex justify-center items-center">
@@ -58,8 +59,8 @@ export default function EmailConfirmationPage() {
                         </div>
                     ) : (
                         <div className="flex flex-col items-center justify-center h-full w-full">
-                            <p className="text-4xl font-bold">Email Not Confirmed</p>
-                            <p className="text-2xl font-bold">Please check your email and confirm your account</p>
+                            <p className="text-4xl font-bold">Something went wrong</p>
+                            <p className="text-2xl font-bold">Email could be already confirmed</p>
                         </div>
                     )}
                 </>

@@ -22,12 +22,12 @@ export default function Login() {
 
         fetch(baseURL + 'user/auth/login', {
             method: 'POST',
-            headers: {'Authorization': 'Basic ' + base64.encode(username + ":" + password)}
+            headers: { 'Authorization': 'Basic ' + base64.encode(username + ":" + password) }
         })
-           
+
             .then((response) => {
 
-                if(response.status == "401"){
+                if (response.status == "401") {
                     setErrorMessage("Username or Password incorrect!");
                     throw new Error('Username or Password incorrect!');
                 }
@@ -35,24 +35,31 @@ export default function Login() {
                 if (!response.ok) {
                     setErrorMessage("Something went wrong try again!");
                     throw new Error('Something went wrong! try again!');
+                } else {
+                    setErrorMessage("Something went wrong try again!");
                 }
-                
+
                 return response.json();
 
             })
             .then((data) => {
-                
+
                 localStorage.setItem('access', data.access_token);
-                
-                setLoggedIn(true);                
+
+                setLoggedIn(true);
 
                 navigate(location?.state?.previousUrl
-                    ?location.state.previousUrl
-                    :'/'
+                    ? location.state.previousUrl
+                    : '/'
                 );
             })
             .catch((e) => {
-                console.log(e.message);
+                setErrorMessage((prevErrorMessage) => {
+                    const newErrorMessage = "Something went wrong try again!";
+                    console.log(newErrorMessage);
+                    console.log(e.message);
+                    return newErrorMessage;
+                });
             });
     }
 
@@ -78,7 +85,7 @@ export default function Login() {
                         <button className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline" type="submit">
                             Login
                         </button>
-                    </div>                    
+                    </div>
                 </form>
 
             </div>

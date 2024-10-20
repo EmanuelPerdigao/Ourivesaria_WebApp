@@ -44,7 +44,7 @@ export default function NewHeader() {
 
                                 {/* Ourivesaria Brand */}
                                 <div className='flex items-center ml-7 md:ml-16'>
-                                    <a href="/#inicio" className='text-3xl md:text-[36px] font-Newsreader font-medium p-0 m-0 text no-underline text-[#CDA135]'>Ourivesaria Ouro</a>
+                                    <a href="/#inicio" className='text-3xl md:text-[36px] font-Newsreader font-medium p-0 m-0 text no-underline text-[#daac38]'>Ourivesaria Ouro</a>
                                 </div>
 
                                 {/* Main navigation links */}
@@ -53,15 +53,16 @@ export default function NewHeader() {
                                         <div className="flex justify-center mr-20 md:gap-8">
                                             {/* Mapping through navigation items */}
                                             {navigation.map((item) => (
-                                                <div key={item.name} className="flex justify-center text-center">
+                                                <div key={item.name} className="flex justify-center items-center text-center group/${item.name}">
                                                     <a
                                                         href={item.href}
                                                         className={classNames(
-                                                            'text-lg font-inter font-medium hover:font-bold text-gray-900 px-4'
+                                                            'text-lg font-inter font-medium text-gray-900 px-4 relative'
                                                         )}
                                                         style={{ textDecoration: 'none' }}
                                                     >
                                                         {item.name}
+                                                        <span className="absolute bottom-0 left-0 w-0 h-0.5 bg-[#ffca44] transition-all duration-300 group-hover/${item.name}:w-full delay-100"></span>
                                                     </a>
                                                 </div>
                                             ))}
@@ -69,24 +70,25 @@ export default function NewHeader() {
                                             {/* Login button/Register button */}
                                             {!loggedIn && (
                                                 <>
-                                                    <div className="flex justify-center text-center">
+                                                    <div className="flex justify-center items-center text-center group/login">
                                                         <a
                                                             href="/login"
                                                             className={classNames(
-                                                                'text-lg font-inter font-medium hover:font-bold text-gray-900 px-4'
+                                                                'text-lg font-inter font-medium text-gray-900 px-4 relative'
                                                             )}
                                                             style={{ textDecoration: 'none' }}
                                                         >
                                                             Login
+                                                            <span className="absolute bottom-0 left-0 w-0 h-0.5 bg-[#ffca44] transition-all duration-300 group-hover/login:w-full delay-100"></span>
                                                         </a>
                                                     </div>
 
-                                                    
+
                                                     <div className="flex justify-center text-center">
                                                         <a
                                                             href="/register"
                                                             className={classNames(
-                                                                'text-lg font-inter font-medium hover:font-bold text-gray-900 px-4'
+                                                                'text-lg font-inter font-medium text-gray-900 px-4'
                                                             )}
                                                             style={{ textDecoration: 'none' }}
                                                         >
@@ -141,7 +143,7 @@ export default function NewHeader() {
                         </Disclosure.Panel>
                     </>
                 )}
-            </Disclosure>
+            </Disclosure >
 
         </>
     )

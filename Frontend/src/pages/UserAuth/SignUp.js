@@ -46,7 +46,6 @@ export default function SignUp() {
                 password: password
             })
         })
-
             .then((response) => {
 
                 if (!response.ok) {

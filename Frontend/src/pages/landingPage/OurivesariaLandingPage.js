@@ -6,7 +6,8 @@ import GoldSectionImg from '../../Images/GoldSection.jpg'
 import SilverSectionImg from '../../Images/SilverSection.jpg'
 import OthersSectionImg from '../../Images/OtherSection.jpg'
 import EngravingImageSection from '../../Images/EngravingImageSection.jpg'
-import {apiWakeUpServer} from "../../Services/serverServices/serverApiService";
+import { apiWakeUpServer } from "../../Services/serverServices/serverApiService";
+import { motion } from "framer-motion"
 
 export const OurivesariaLandingPage = () => {
 
@@ -39,9 +40,18 @@ export const OurivesariaLandingPage = () => {
                         <div className="w-full h-full flex flex-col items-center text-left md:text-center font text-black">
 
                             {/* Title */}
-                            <div className=" md:max-w-[45%] space-y-6">
+                            {/* <div className=" md:max-w-[45%] space-y-6">
                                 <p className="m-0 font-Newsreader text-2xl md:text-6xl">Somos especialistas na venda de produtos de ouro e prata.</p>
+                            </div> */}
+
+                            <div className="md:max-w-[45%]">
+                                {/* TODO */}
+                                <motion.div initial={{ x: -300 }} whileInView={{ x: 0 }} transition={{ duration: 1.5 }}>
+                                    <p className="m-0 font-Newsreader text-2xl md:text-6xl">Somos especialistas na venda de produtos de ouro e prata.</p>
+                                </motion.div>
                             </div>
+
+
 
                             {/* Description */}
                             <div className="flex flex-col font-Inter content-center md:max-w-[40%] pt-10 md:pt-20 text-sm md:text-xl gap-2">
@@ -143,7 +153,7 @@ export const OurivesariaLandingPage = () => {
 
                     <div id="contactos" className="w-screen h-full">
                         <footer className="h-full w-full px-8 md:px-48 flex flex-col md:flex-row gap-10 justify-between text-black md:p-0 ">
-                            
+
                             {/* Contact Information */}
                             <div className="flex flex-col w-fit font-Inter ">
                                 <div>
